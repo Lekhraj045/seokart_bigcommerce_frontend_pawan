@@ -1,0 +1,432 @@
+{
+  "business": [
+    {
+      "label": "Organization",
+      "value": "Organization"
+    },
+    {
+      "label": "Accounting Service",
+      "value": "AccountingService"
+    },
+    {
+      "label": "Adult Entertainment",
+      "value": "AdultEntertainment"
+    },
+    {
+      "label": "Amusement Park",
+      "value": "AmusementPark"
+    },
+    {
+      "label": "Animal Shelter",
+      "value": "AnimalShelter"
+    },
+    {
+      "label": "Art Gallery",
+      "value": "ArtGallery"
+    },
+    {
+      "label": "Attorney",
+      "value": "Attorney"
+    },
+    {
+      "label": "Notary",
+      "value": "Notary"
+    },
+    {
+      "label": "Auto Body Shop",
+      "value": "AutoBodyShop"
+    },
+    {
+      "label": "Auto Dealer",
+      "value": "AutoDealer"
+    },
+    {
+      "label": "Automated Teller",
+      "value": "AutomatedTeller"
+    },
+    {
+      "label": "Auto Parts Store",
+      "value": "AutoPartsStore"
+    },
+    {
+      "label": "Auto Rental",
+      "value": "AutoRental"
+    },
+    {
+      "label": "Auto Repair",
+      "value": "AutoRepair"
+    },
+    {
+      "label": "Auto Wash",
+      "value": "AutoWash"
+    },
+    {
+      "label": "Bakery",
+      "value": "Bakery"
+    },
+    {
+      "label": "Bank or Credit Union",
+      "value": "BankOrCreditUnion"
+    },
+    {
+      "label": "Bar or Pub",
+      "value": "BarOrPub"
+    },
+    {
+      "label": "Beauty Salon",
+      "value": "BeautySalon"
+    },
+    {
+      "label": "Bed & Breakfast",
+      "value": "BedAndBreakfast"
+    },
+    {
+      "label": "Bike Store",
+      "value": "BikeStore"
+    },
+    {
+      "label": "Book Store",
+      "value": "BookStore"
+    },
+    {
+      "label": "Bowling Alley",
+      "value": "BowlingAlley"
+    },
+    {
+      "label": "Brewery",
+      "value": "Brewery"
+    },
+    {
+      "label": "Cafe or Coffee Shop",
+      "value": "CafeOrCoffeeShop"
+    },
+    {
+      "label": "Campground",
+      "value": "Campground"
+    },
+    {
+      "label": "Casino",
+      "value": "Casino"
+    },
+    {
+      "label": "Child Care",
+      "value": "ChildCare"
+    },
+    {
+      "label": "Clothing Store",
+      "value": "ClothingStore"
+    },
+    {
+      "label": "Comedy Club",
+      "value": "ComedyClub"
+    },
+    {
+      "label": "Computer Store",
+      "value": "ComputerStore"
+    },
+    {
+      "label": "Convenience Store",
+      "value": "ConvenienceStore"
+    },
+    {
+      "label": "Day Spa",
+      "value": "DaySpa"
+    },
+    {
+      "label": "Dentist",
+      "value": "Dentist"
+    },
+    {
+      "label": "Department Store",
+      "value": "DepartmentStore"
+    },
+    {
+      "label": "Dry Cleaning Or Laundry",
+      "value": "DryCleaningOrLaundry"
+    },
+    {
+      "label": "Electrician",
+      "value": "Electrician"
+    },
+    {
+      "label": "Electronics Store",
+      "value": "ElectronicsStore"
+    },
+    {
+      "label": "Employment Agency",
+      "value": "EmploymentAgency"
+    },
+    {
+      "label": "Exercise Gym",
+      "value": "ExerciseGym"
+    },
+    {
+      "label": "Fast Food Restaurant",
+      "value": "FastFoodRestaurant"
+    },
+    {
+      "label": "Firestation",
+      "value": "FireStation"
+    },
+    {
+      "label": "Florist",
+      "value": "Florist"
+    },
+    {
+      "label": "Furniture Store",
+      "value": "FurnitureStore"
+    },
+    {
+      "label": "Garden Store",
+      "value": "GardenStore"
+    },
+    {
+      "label": "Gas Station",
+      "value": "GasStation"
+    },
+    {
+      "label": "General Contractor",
+      "value": "GeneralContractor"
+    },
+    {
+      "label": "Golf Course",
+      "value": "GolfCourse"
+    },
+    {
+      "label": "Grocery Store",
+      "value": "GroceryStore"
+    },
+    {
+      "label": "Hair Salon",
+      "value": "HairSalon"
+    },
+    {
+      "label": "Hardware Store",
+      "value": "HardwareStore"
+    },
+    {
+      "label": "Health Club",
+      "value": "HealthClub"
+    },
+    {
+      "label": "Hobby Shop",
+      "value": "HobbyShop"
+    },
+    {
+      "label": "Home Goods Store",
+      "value": "HomeGoodsStore"
+    },
+    {
+      "label": "Hospital",
+      "value": "Hospital"
+    },
+    {
+      "label": "Hostel",
+      "value": "Hostel"
+    },
+    {
+      "label": "Hotel",
+      "value": "Hotel"
+    },
+    {
+      "label": "House Painter",
+      "value": "HousePainter"
+    },
+    {
+      "label": "HVAC Business",
+      "value": "HVACBusiness"
+    },
+    {
+      "label": "Ice Cream Shop",
+      "value": "IceCreamShop"
+    },
+    {
+      "label": "Insurance Agency",
+      "value": "InsuranceAgency"
+    },
+    {
+      "label": "Internet Cafe",
+      "value": "InternetCafe"
+    },
+    {
+      "label": "Jewelry Store",
+      "value": "JewelryStore"
+    },
+    {
+      "label": "Library",
+      "value": "Library"
+    },
+    {
+      "label": "Liquor Store",
+      "value": "LiquorStore"
+    },
+    {
+      "label": "Locksmith",
+      "value": "Locksmith"
+    },
+    {
+      "label": "Mens Clothing Store",
+      "value": "MensClothingStore"
+    },
+    {
+      "label": "Mobile Phone Store",
+      "value": "MobilePhoneStore"
+    },
+    {
+      "label": "Motel",
+      "value": "Motel"
+    },
+    {
+      "label": "Motorcycle Dealer",
+      "value": "MotorcycleDealer"
+    },
+    {
+      "label": "Motorcycle Repair",
+      "value": "MotorcycleRepair"
+    },
+    {
+      "label": "Movie Rental Store",
+      "value": "MovieRentalStore"
+    },
+    {
+      "label": "Movie Theater",
+      "value": "MovieTheater"
+    },
+    {
+      "label": "Moving Company",
+      "value": "MovingCompany"
+    },
+    {
+      "label": "Music Store",
+      "value": "MusicStore"
+    },
+    {
+      "label": "Nail Salon",
+      "value": "NailSalon"
+    },
+    {
+      "label": "Night Club",
+      "value": "NightClub"
+    },
+    {
+      "label": "Office Equipment Store",
+      "value": "OfficeEquipmentStore"
+    },
+    {
+      "label": "Outlet Store",
+      "value": "OutletStore"
+    },
+    {
+      "label": "Pawn Shop",
+      "value": "PawnShop"
+    },
+    {
+      "label": "Pet Store",
+      "value": "PetStore"
+    },
+    {
+      "label": "Plumber",
+      "value": "Plumber"
+    },
+    {
+      "label": "Police Station",
+      "value": "PoliceStation"
+    },
+    {
+      "label": "Post Office",
+      "value": "PostOffice"
+    },
+    {
+      "label": "Public Swimming Pool",
+      "value": "PublicSwimmingPool"
+    },
+    {
+      "label": "RadioStation",
+      "value": "RadioStation"
+    },
+    {
+      "label": "Real Estate Agent",
+      "value": "RealEstateAgent"
+    },
+    {
+      "label": "Recycling Center",
+      "value": "RecyclingCenter"
+    },
+    {
+      "label": "Resort",
+      "value": "Resort"
+    },
+    {
+      "label": "Restaurant",
+      "value": "Restaurant"
+    },
+    {
+      "label": "Roofing Contractor",
+      "value": "RoofingContractor"
+    },
+    {
+      "label": "Self Storage",
+      "value": "SelfStorage"
+    },
+    {
+      "label": "Shoe Store",
+      "value": "ShoeStore"
+    },
+    {
+      "label": "Shopping Center",
+      "value": "ShoppingCenter"
+    },
+    {
+      "label": "Ski Resort",
+      "value": "SkiResort"
+    },
+    {
+      "label": "Sporting Goods Store",
+      "value": "SportingGoodsStore"
+    },
+    {
+      "label": "Sports Club",
+      "value": "SportsClub"
+    },
+    {
+      "label": "Stadium or Arena",
+      "value": "StadiumOrArena"
+    },
+    {
+      "label": "Tattoo Parlor",
+      "value": "TattooParlor"
+    },
+    {
+      "label": "Television Station",
+      "value": "TelevisionStation"
+    },
+    {
+      "label": "Tennis Complex",
+      "value": "TennisComplex"
+    },
+    {
+      "label": "Tire Shop",
+      "value": "TireShop"
+    },
+    {
+      "label": "Tourist Information Center",
+      "value": "TouristInformationCenter"
+    },
+    {
+      "label": "Toy Store",
+      "value": "ToyStore"
+    },
+    {
+      "label": "Travel Agency",
+      "value": "TravelAgency"
+    },
+    {
+      "label": "Wholesale Store",
+      "value": "WholesaleStore"
+    },
+    {
+      "label": "Winery",
+      "value": "Winery"
+    }
+  ]
+}

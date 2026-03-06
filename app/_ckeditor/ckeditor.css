@@ -1,0 +1,103 @@
+.ck-content h1,
+.ck-content h2 {
+  display: block;
+  margin: 0.67em 0;
+  font-weight: bold;
+}
+
+.ck-content h1 {
+  display: block;
+  font-size: 2em;
+  margin-block-start: 1.67em;
+  margin-block-end: 1.67em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold;
+  line-height: 1.2;
+  margin: 0 0 0.75rem;
+}
+
+.ck-content h2 {
+  display: block;
+  font-size:1.5em;
+  margin-block-start: 1.67em;
+  margin-block-end: 1.67em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold;
+  margin: 0 0 0.66rem 0;
+}
+.ck-content h3 {
+  display: block;
+  font-size: 1.17em;
+  margin-block-start: 1.67em;
+  margin-block-end: 1.67em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold;
+  margin: 0 0 0.66rem 0;
+}
+.ck-content h4 {
+  display: block;
+  font-size: 1em;
+  margin-block-start: 1.67em;
+  margin-block-end: 1.67em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold;
+  margin: 0 0 0.66rem 0;
+
+}
+.ck-content h5 {
+  margin: 0 0 0.66rem 0;
+
+    display: block;
+    font-size: 0.83em;
+    margin-block-start: 1.67em;
+    margin-block-end: 1.67em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+
+}
+
+.ck-content h6 {
+  display: block;
+  font-size: 0.67em;
+  margin-block-start: 1.67em;
+  margin-block-end: 1.67em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold;
+  margin: 0 0 0.66rem 0;
+
+}
+
+.ck-content p {
+  display: block;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  margin: 0 0 1rem;
+}
+
+.ck-editor__editable {
+  max-height: 200px;
+}
+
+.ck-content .page-break {
+    page-break-after: always;
+    border-top: 2px dashed #999;
+    margin: 20px 0;
+    padding: 10px 0;
+    text-align: center;
+    color: #666;
+}
+
+.ck-content .page-break::after {
+    content: "Page Break";
+    font-size: 12px;
+    background: white;
+    padding: 0 10px;
+}
