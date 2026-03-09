@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef, useMemo } from "react";
+import { useState, useEffect, useRef, useMemo, useCallback } from "react";
 import _ from "lodash";
 import { usePathname } from "next/navigation";
 import dynamic from "next/dynamic";
@@ -75,12 +75,21 @@ export default function Home() {
   const [showUnsavedModal, setShowUnsavedModal] = useState(false);
   const [pendingSwitchItemId, setPendingSwitchItemId] = useState<any>(null);
   const [pendingSwitchIndex, setPendingSwitchIndex] = useState<any>(null);
+  const [currentItemType, setCurrentItemType] = useState("");
 
   // fetch channel active domain from local storage
   const [channelDomain, setChannelDomain] = useState("");
   useEffect(() => {
     const channel = JSON.parse(localStorage.getItem("channel") ?? "");
     setChannelDomain(channel.domain);
+  }, []);
+
+  useEffect(() => {
+    if (!activeItemId) setCurrentItemType("");
+  }, [activeItemId]);
+
+  const onItemTypeChange = useCallback((type: string) => {
+    setCurrentItemType((prev) => (prev === type ? prev : type));
   }, []);
 
   const handleOnClick = async () => {
@@ -389,64 +398,74 @@ export default function Home() {
                       </div>
                     </li>
 
-                    {/* Title Tag */}
-                    <li>
-                      <div className="flex items-center">
-                        <input
-                          id="titleTag"
-                          type="checkbox"
-                          checked={checkedItems.titleTag}
-                          onChange={() => handleCheckboxChange("titleTag")}
-                          className="form-check-input cursor-pointer mt-0"
-                        />
-                        <label
-                          htmlFor="titleTag"
-                          className="ms-2 text-sm font-medium text-gray-900"
-                        >
-                          Title Tag
-                        </label>
-                      </div>
-                    </li>
+                    {/* Title Tag - hidden for blog */}
+                    {currentItemType !== "blog" &&
+                      currentItemType !== "home" && (
+                        <li>
+                          <div className="flex items-center">
+                            <input
+                              id="titleTag"
+                              type="checkbox"
+                              checked={checkedItems.titleTag}
+                              onChange={() => handleCheckboxChange("titleTag")}
+                              className="form-check-input cursor-pointer mt-0"
+                            />
+                            <label
+                              htmlFor="titleTag"
+                              className="ms-2 text-sm font-medium text-gray-900"
+                            >
+                              Title Tag
+                            </label>
+                          </div>
+                        </li>
+                      )}
 
                     {/* Meta Description */}
-                    <li>
-                      <div className="flex items-center">
-                        <input
-                          id="metaDescription"
-                          type="checkbox"
-                          checked={checkedItems.metaDescription}
-                          onChange={() =>
-                            handleCheckboxChange("metaDescription")
-                          }
-                          className="form-check-input cursor-pointer mt-0"
-                        />
-                        <label
-                          htmlFor="metaDescription"
-                          className="ms-2 text-sm font-medium text-gray-900"
-                        >
-                          Meta Description
-                        </label>
-                      </div>
-                    </li>
+                    {currentItemType !== "home" && (
+                      <li>
+                        <div className="flex items-center">
+                          <input
+                            id="metaDescription"
+                            type="checkbox"
+                            checked={checkedItems.metaDescription}
+                            onChange={() =>
+                              handleCheckboxChange("metaDescription")
+                            }
+                            className="form-check-input cursor-pointer mt-0"
+                          />
+                          <label
+                            htmlFor="metaDescription"
+                            className="ms-2 text-sm font-medium text-gray-900"
+                          >
+                            Meta Description
+                          </label>
+                        </div>
+                      </li>
+                    )}
 
                     {/* Description */}
-                    <li>
-                      <div className="flex items-center">
-                        <input
-                          id="description"
-                          type="checkbox"
-                          checked={checkedItems.description}
-                          onChange={() => handleCheckboxChange("description")}
-                          className="form-check-input cursor-pointer mt-0"
-                        />
-                        <label
-                          htmlFor="description"
-                          className="ms-2 text-sm font-medium text-gray-900"
-                        >
-                          Description
-                        </label>
-                      </div>
-                    </li>
+                    {currentItemType !== "brand" &&
+                      currentItemType !== "home" && (
+                        <li>
+                          <div className="flex items-center">
+                            <input
+                              id="description"
+                              type="checkbox"
+                              checked={checkedItems.description}
+                              onChange={() =>
+                                handleCheckboxChange("description")
+                              }
+                              className="form-check-input cursor-pointer mt-0"
+                            />
+                            <label
+                              htmlFor="description"
+                              className="ms-2 text-sm font-medium text-gray-900"
+                            >
+                              Description
+                            </label>
+                          </div>
+                        </li>
+                      )}
 
                     {/* ✅ Image Section */}
                     <li>
@@ -816,6 +835,7 @@ export default function Home() {
                   setUpdateSeoScore={setUpdateSeoScore}
                   checkedItems={checkedItems}
                   setUpdateItemName={setUpdateItemName}
+                  onItemTypeChange={onItemTypeChange}
                 />
               )}
             </div>

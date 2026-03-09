@@ -169,11 +169,7 @@ const Home = (Props: any, ref: any) => {
     imageAlts: {},
   });
   const savedSeoScoreRef = useRef<number | undefined>(undefined);
-
-  useEffect(() => {
-    const channelObj = JSON.parse(localStorage.getItem("channel") ?? "");
-    setHomeUrl(channelObj.domain);
-  }, []);
+  const lastReportedItemTypeRef = useRef<string>("");
 
   // Keep ref in sync when description is set from parent (initial load, blur, restore)
   useEffect(() => {
@@ -267,6 +263,11 @@ const Home = (Props: any, ref: any) => {
       setMetaDescription({ loading: false, data: itemData?.meta_description });
       setDescription({ loading: false, data: itemData?.description });
       setItemType(itemData?.item_type);
+      const newType = itemData?.item_type ?? "";
+      if (lastReportedItemTypeRef.current !== newType) {
+        lastReportedItemTypeRef.current = newType;
+        Props.onItemTypeChange?.(newType);
+      }
       setItemId(itemData?.item_id);
       // setImageData(itemData.image_data)
       // setUpdateImageData(itemData.image_data)
@@ -292,7 +293,6 @@ const Home = (Props: any, ref: any) => {
         setSpellStatus("on");
       }
 
-      setUrlData(itemData?.urleditor);
       setUrl(itemData?.url);
       setSeoScore(data?.total_seo_score);
       savedSeoScoreRef.current = data?.total_seo_score;
@@ -358,8 +358,6 @@ const Home = (Props: any, ref: any) => {
         loading: false,
         data: data?.imageIssues?.alt_text_in_the_primary_image,
       });
-
-      //setSeoScore(data.total_seo_score)
     });
   };
 
@@ -644,6 +642,7 @@ const Home = (Props: any, ref: any) => {
   }, [targetKeyword]);
 
   useEffect(() => {
+    lastReportedItemTypeRef.current = "";
     getSingleItemOptimize();
     getProductImages();
   }, [id]);
@@ -695,11 +694,11 @@ const Home = (Props: any, ref: any) => {
 
     if (checkedItems.targetKeyword)
       setTargetKeyword((prev: any) => ({ ...prev, loading: true }));
-    if (checkedItems.titleTag)
+    if (checkedItems.titleTag && itemType !== "blog" && itemType !== "home")
       setTitleTag((prev: any) => ({ ...prev, loading: true }));
-    if (checkedItems.metaDescription)
+    if (checkedItems.metaDescription && itemType !== "home")
       setMetaDescription((prev: any) => ({ ...prev, loading: true }));
-    if (checkedItems.description)
+    if (checkedItems.description && itemType !== "brand" && itemType !== "home")
       setDescription((prev: any) => ({ ...prev, loading: true }));
 
     let keyword = targetKeyword.data;
@@ -724,7 +723,7 @@ const Home = (Props: any, ref: any) => {
         keyword = keywordResponse.data.keyword;
       }
 
-      if (checkedItems.titleTag) {
+      if (checkedItems.titleTag && itemType !== "blog" && itemType !== "home") {
         apiCalls.push(
           copilotApi("getItemMetaTitle", {
             item_name: name,
@@ -749,7 +748,7 @@ const Home = (Props: any, ref: any) => {
         );
       }
 
-      if (checkedItems.metaDescription) {
+      if (checkedItems.metaDescription && itemType !== "home") {
         apiCalls.push(
           copilotApi("getItemMetaDesc", {
             item_name: name,
@@ -774,7 +773,11 @@ const Home = (Props: any, ref: any) => {
         );
       }
 
-      if (checkedItems.description) {
+      if (
+        checkedItems.description &&
+        itemType !== "brand" &&
+        itemType !== "home"
+      ) {
         apiCalls.push(
           copilotApi(
             itemType == "product" ? "getAiProductDesc" : "getAiItemDesc",
@@ -788,7 +791,10 @@ const Home = (Props: any, ref: any) => {
             },
           ).then((res) => {
             if (res.success) {
-              setDescription({ loading: false, data: res.data.description });
+              setDescription({
+                loading: false,
+                data: res?.data?.description ?? res?.data?.item_description,
+              });
               setIsSeoUpdated(true);
             }
           }),
@@ -798,11 +804,11 @@ const Home = (Props: any, ref: any) => {
       // ✅ fire only required APIs
       await Promise.all(apiCalls);
     } finally {
-      if (checkedItems.titleTag)
+      if (checkedItems.titleTag && itemType !== "blog")
         setTitleTag((prev) => ({ ...prev, loading: false }));
       if (checkedItems.metaDescription)
         setMetaDescription((prev) => ({ ...prev, loading: false }));
-      if (checkedItems.description)
+      if (checkedItems.description && itemType !== "brand")
         setDescription((prev) => ({ ...prev, loading: false }));
     }
   };
@@ -916,7 +922,11 @@ const Home = (Props: any, ref: any) => {
                       <input
                         type="text"
                         disabled={itemType == "home"}
-                        className="form-control"
+                        className={
+                          itemType == "home"
+                            ? "field-disable form-control"
+                            : "form-control"
+                        }
                         value={name}
                         onChange={(e) => {
                           getAuditScoreOnChange(
@@ -1012,7 +1022,11 @@ const Home = (Props: any, ref: any) => {
                           <input
                             type="text"
                             disabled={itemType == "home" || itemType == "blog"}
-                            className="form-control"
+                            className={
+                              itemType == "home" || itemType == "blog"
+                                ? "field-disable form-control"
+                                : "form-control"
+                            }
                             value={titleTag.data}
                             onChange={(e) => {
                               getAuditScoreOnChange(
@@ -1045,7 +1059,7 @@ const Home = (Props: any, ref: any) => {
                             Meta Description
                           </span>
                           <textarea
-                            className={`form-control height110 ${itemType == "home" ? "cursor-disable" : ""}`}
+                            className={`form-control height110 ${itemType == "home" ? "field-disable" : ""}`}
                             disabled={itemType == "home"}
                             value={metaDescription.data}
                             onChange={(e) => {
@@ -1113,7 +1127,7 @@ const Home = (Props: any, ref: any) => {
                   <div className="col-md-12 mb-22">
                     <div className="d-flex gap-3 align-items-end">
                       <div
-                        className={`custom-textarea flex-grow-1 ${itemType == "home" && "disable-editor"}`}
+                        className={`custom-textarea flex-grow-1 ${(itemType == "home" || itemType == "brand") && "field-disable"}`}
                       >
                         <span className="textarea-heading ">Description</span>
 
@@ -1350,39 +1364,43 @@ const Home = (Props: any, ref: any) => {
                         </div>
                       </div>
 
-                      <div className="card !bg-[#f7f7f7] mb-0">
-                        <div className="flex flex-col gap-2">
-                          <h3 className="font-bold text-[13px]">Title Tag:-</h3>
-                          <p>{titleTag.data}</p>
+                      {itemType !== "blog" && (
+                        <div className="card !bg-[#f7f7f7] mb-0">
+                          <div className="flex flex-col gap-2">
+                            <h3 className="font-bold text-[13px]">
+                              Title Tag:-
+                            </h3>
+                            <p>{titleTag.data}</p>
+                          </div>
+                          <Dropdown>
+                            <Dropdown.Toggle
+                              variant="Secondary"
+                              className="btn btn-default"
+                            >
+                              Restore
+                            </Dropdown.Toggle>
+                            <Dropdown.Menu>
+                              {oldData.map((item: any, key: any) => (
+                                <div key={key}>
+                                  {item.type == 2 && (
+                                    <Dropdown.Item
+                                      as="button"
+                                      onClick={() => {
+                                        setTitleTag({
+                                          loading: false,
+                                          data: item.value,
+                                        });
+                                      }}
+                                    >
+                                      Title Tag ({item.created_at})
+                                    </Dropdown.Item>
+                                  )}
+                                </div>
+                              ))}
+                            </Dropdown.Menu>
+                          </Dropdown>
                         </div>
-                        <Dropdown>
-                          <Dropdown.Toggle
-                            variant="Secondary"
-                            className="btn btn-default"
-                          >
-                            Restore
-                          </Dropdown.Toggle>
-                          <Dropdown.Menu>
-                            {oldData.map((item: any, key: any) => (
-                              <div key={key}>
-                                {item.type == 2 && (
-                                  <Dropdown.Item
-                                    as="button"
-                                    onClick={() => {
-                                      setTitleTag({
-                                        loading: false,
-                                        data: item.value,
-                                      });
-                                    }}
-                                  >
-                                    Title Tag ({item.created_at})
-                                  </Dropdown.Item>
-                                )}
-                              </div>
-                            ))}
-                          </Dropdown.Menu>
-                        </Dropdown>
-                      </div>
+                      )}
 
                       <div className="card !bg-[#f7f7f7] mb-0">
                         <div className="flex flex-col gap-2">

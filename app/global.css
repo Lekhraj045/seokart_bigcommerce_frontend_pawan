@@ -3,10 +3,10 @@
 @tailwind utilities;
 
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   color: #303030;
   font-size: 13px;
-  background: #F1F1F1;
+  background: #f1f1f1;
   font-weight: 500;
 }
 
@@ -172,15 +172,19 @@ p {
 
 .custom-btn {
   border-radius: 8px;
-  background: #3F3F3F;
-  box-shadow: 0px 1px 0px 0px #000 inset, 0px 0px 0px 1px #000 inset, -2px 0px 0px 0px rgba(255, 255, 255, 0.20) inset, 2px 0px 0px 0px rgba(255, 255, 255, 0.20) inset, 1px 2px 0px 0px rgba(255, 255, 255, 0.20) inset;
+  background: #3f3f3f;
+  box-shadow:
+    0px 1px 0px 0px #000 inset,
+    0px 0px 0px 1px #000 inset,
+    -2px 0px 0px 0px rgba(255, 255, 255, 0.2) inset,
+    2px 0px 0px 0px rgba(255, 255, 255, 0.2) inset,
+    1px 2px 0px 0px rgba(255, 255, 255, 0.2) inset;
   height: 28px;
   color: #fff;
   padding: 5px 12px;
   font-weight: 500;
   font-size: 12px;
 }
-
 
 .btn-primary {
   border-radius: 8px;
@@ -196,7 +200,6 @@ p {
 .btn-primary:hover {
   background: #6f8dfd;
 }
-
 
 .frame-area {
   padding-left: 60px;
@@ -219,7 +222,7 @@ p {
 
 .sidebar {
   width: 60px;
-  background: #EBEBEB;
+  background: #ebebeb;
   height: 100%;
   position: fixed;
   z-index: 7;
@@ -259,7 +262,7 @@ p {
 }
 
 .custom-navbar ul li a:hover {
-  background: #F1F1F1;
+  background: #f1f1f1;
   border-radius: 8px;
 }
 
@@ -301,7 +304,12 @@ p {
   border-radius: 12px;
   text-decoration: none;
   padding: 16px;
-  box-shadow: 0px 2px 0px 0px rgba(26, 26, 26, 0.07), 0px 0px 0px 0px rgba(204, 204, 204, 0.50) inset, 0px 0px 0px 0px rgba(0, 0, 0, 0.17) inset, 0px 0px 0px 0px rgba(0, 0, 0, 0.13) inset, 0px 0px 0px 0px rgba(0, 0, 0, 0.13) inset;
+  box-shadow:
+    0px 2px 0px 0px rgba(26, 26, 26, 0.07),
+    0px 0px 0px 0px rgba(204, 204, 204, 0.5) inset,
+    0px 0px 0px 0px rgba(0, 0, 0, 0.17) inset,
+    0px 0px 0px 0px rgba(0, 0, 0, 0.13) inset,
+    0px 0px 0px 0px rgba(0, 0, 0, 0.13) inset;
   margin-bottom: 24px;
 }
 
@@ -352,7 +360,7 @@ p {
 .gauge-a {
   z-index: 1;
   position: absolute;
-  background-color: rgba(255, 255, 255, .2);
+  background-color: rgba(255, 255, 255, 0.2);
   width: 240px;
   height: 140px;
   top: 0%;
@@ -439,7 +447,6 @@ p {
 
 /*dashboard score animation*/
 
-
 .rich-snippetsList ul {
   margin: 0;
   padding: 0;
@@ -463,7 +470,7 @@ p {
 .DSA-snippet-toggle {
   width: 66px;
   height: 26px;
-  background: #28C76F;
+  background: #28c76f;
   border-radius: 6px;
   padding: 3px 4px 3px 8px;
   display: flex;
@@ -485,7 +492,7 @@ p {
 
 .DSA-snippet-toggle.DSAS-toggle-off {
   padding: 3px 8px 3px 4px;
-  background: #E2E2E2;
+  background: #e2e2e2;
 }
 
 .DSA-snippet-toggle.DSAS-toggle-off span {
@@ -509,7 +516,7 @@ p {
 /*modal css start*/
 
 .modal-header {
-  background: #F3F3F3;
+  background: #f3f3f3;
   border-radius: 20px 20px 0 0;
   padding: 15px 20px;
 }
@@ -553,12 +560,12 @@ p {
 }
 
 .headChannel-dropi.custom-dropi span {
-  background: linear-gradient(#F1F1F1, #fff);
+  background: linear-gradient(#f1f1f1, #fff);
   color: #616161;
 }
 
 .dropiLabel {
-  background: linear-gradient(#F1F1F1, #fff) !important;
+  background: linear-gradient(#f1f1f1, #fff) !important;
   color: #616161 !important;
 }
 
@@ -571,8 +578,8 @@ p {
 .custom-dropi select {
   font-size: 12px;
   font-weight: normal;
-  background-color: #FDFDFD;
-  border: 0.66px solid #8A8A8A;
+  background-color: #fdfdfd;
+  border: 0.66px solid #8a8a8a;
   height: 32px;
   padding: 5px 33px 5px 13px;
 }
@@ -595,20 +602,28 @@ p {
 .custom-dropi select:focus {
   outline: none;
   box-shadow: none;
-  border-color: #8A8A8A;
+  border-color: #8a8a8a;
 }
 
 .richSnippets-Area .accordion .accordion-item {
   margin-bottom: 20px;
 }
 
-.richSnippets-Area .accordion .accordion-item .accordion-header .accordion-button:focus {
+.richSnippets-Area
+  .accordion
+  .accordion-item
+  .accordion-header
+  .accordion-button:focus {
   box-shadow: none;
   outline: none;
 }
 
 .richSnippets-Area .accordion .accordion-item,
-.richSnippets-Area .accordion .accordion-item .accordion-header .accordion-button.collapsed {
+.richSnippets-Area
+  .accordion
+  .accordion-item
+  .accordion-header
+  .accordion-button.collapsed {
   border-radius: 12px;
 }
 
@@ -616,7 +631,11 @@ p {
   background: #cdced778;
 }
 
-.richSnippets-Area .accordion .accordion-item .accordion-header .accordion-button {
+.richSnippets-Area
+  .accordion
+  .accordion-item
+  .accordion-header
+  .accordion-button {
   border-radius: 12px 12px 0 0;
 }
 
@@ -637,7 +656,7 @@ p {
 }
 
 .nav-tabs .nav-link.active {
-  background: rgba(0, 0, 0, .08);
+  background: rgba(0, 0, 0, 0.08);
   border-radius: 0.5rem;
 }
 
@@ -654,7 +673,7 @@ p {
 }
 
 .badge {
-  background: rgba(0, 0, 0, .06);
+  background: rgba(0, 0, 0, 0.06);
   color: #616161;
   font-weight: 500;
   border-radius: 0.5rem;
@@ -741,7 +760,7 @@ p {
   background: #e3e3e3;
   border-radius: inherit;
   font-weight: 600;
-  border-radius: .375rem;
+  border-radius: 0.375rem;
 }
 
 .vc-switch-label:before,
@@ -765,15 +784,15 @@ p {
   opacity: 0;
 }
 
-.vc-switch-input:checked~.vc-switch-label {
+.vc-switch-input:checked ~ .vc-switch-label {
   background: #303030;
 }
 
-.vc-switch-input:checked~.vc-switch-label:before {
+.vc-switch-input:checked ~ .vc-switch-label:before {
   opacity: 0;
 }
 
-.vc-switch-input:checked~.vc-switch-label:after {
+.vc-switch-input:checked ~ .vc-switch-label:after {
   opacity: 1;
 }
 
@@ -784,7 +803,7 @@ p {
   width: 15px;
   height: 15px;
   background: white;
-  border-radius: .1875rem;
+  border-radius: 0.1875rem;
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
 }
 
@@ -799,18 +818,17 @@ p {
   border-radius: 6px;
 }
 
-.vc-switch-label:active~.vc-switch-handle,
+.vc-switch-label:active ~ .vc-switch-handle,
 .vc-switch-handle:active {
   width: 30px;
 }
 
-.vc-switch-input:checked~.vc-switch-handle {
+.vc-switch-input:checked ~ .vc-switch-handle {
   left: unset;
   right: 5px;
 }
 
 /*toggle css end*/
-
 
 .accordion-header {
   position: relative;
@@ -882,14 +900,14 @@ p {
   font-size: 12px;
   font-weight: normal;
   padding: 6px 13px;
-  background: #FDFDFD;
-  border: 0.66px solid #8A8A8A;
+  background: #fdfdfd;
+  border: 0.66px solid #8a8a8a;
 }
 
 .custom-input .form-control:focus {
   outline: none;
   box-shadow: none;
-  border-color: #8A8A8A;
+  border-color: #8a8a8a;
 }
 
 .custom-input .form-control::placeholder {
@@ -946,7 +964,8 @@ p {
   top: 18px;
 }
 
-.custom-input.big-input.snippets-businessBox.snippets-addImage-box .form-control {
+.custom-input.big-input.snippets-businessBox.snippets-addImage-box
+  .form-control {
   padding-right: 44px;
 }
 
@@ -999,7 +1018,7 @@ p {
   right: -13px;
   top: -10px;
   padding: 0;
-  background: #F23131;
+  background: #f23131;
   border: none;
   width: 24px;
   height: 24px;
@@ -1062,7 +1081,7 @@ p {
 
 .autoSearch-dropi .css-1xc3v61-indicatorContainer svg path,
 .autoSearch-dropi .css-15lsz6c-indicatorContainer svg path {
-  fill: #3F3F3F;
+  fill: #3f3f3f;
 }
 
 .css-t3ipsp-control,
@@ -1072,7 +1091,11 @@ p {
   border-radius: 0.375rem !important;
 }
 
-.richSnippets-Area .accordion .accordion-item .richSnippets-productLeft .vc-toggle-container {
+.richSnippets-Area
+  .accordion
+  .accordion-item
+  .richSnippets-productLeft
+  .vc-toggle-container {
   position: initial;
   z-index: initial;
 }
@@ -1103,7 +1126,7 @@ p {
 
 .custom-textarea .form-control {
   resize: none;
-  border: 0.66px solid #8A8A8A;
+  border: 0.66px solid #8a8a8a;
   font-size: 13px;
   height: 80px;
   padding: 9px 33px 9px 13px;
@@ -1189,7 +1212,7 @@ table.table {
 }
 
 .competitor-clearBtn {
-  background: #F23131;
+  background: #f23131;
   border-radius: 100px;
   padding: 0;
   border: none;
@@ -1240,7 +1263,10 @@ table.table {
 }
 
 .custom-textarea .rs-picker-textbox,
-.rs-picker-tag .rs-picker-toggle.rs-btn~.rs-picker-textbox .rs-picker-search-input {
+.rs-picker-tag
+  .rs-picker-toggle.rs-btn
+  ~ .rs-picker-textbox
+  .rs-picker-search-input {
   font-size: 13px !important;
 }
 
@@ -1251,7 +1277,11 @@ table.table {
   padding-top: 9px !important;
 }
 
-.custom-textarea .rs-picker-tag .rs-picker-toggle.rs-btn~.rs-picker-textbox .rs-tag {
+.custom-textarea
+  .rs-picker-tag
+  .rs-picker-toggle.rs-btn
+  ~ .rs-picker-textbox
+  .rs-tag {
   margin-top: 9px;
 }
 
@@ -1259,7 +1289,11 @@ table.table {
   margin-left: 12px;
 }
 
-.custom-textarea .rs-picker-tag .rs-picker-toggle.rs-btn~.rs-picker-textbox .rs-picker-search-input {
+.custom-textarea
+  .rs-picker-tag
+  .rs-picker-toggle.rs-btn
+  ~ .rs-picker-textbox
+  .rs-picker-search-input {
   margin-top: 10px;
 }
 
@@ -1372,7 +1406,7 @@ table.table {
 }
 
 .headBack-btn:hover {
-  background: rgba(0, 0, 0, .08);
+  background: rgba(0, 0, 0, 0.08);
   border-radius: 6px;
 }
 
@@ -1545,7 +1579,10 @@ table.table {
 .btn-default {
   border-radius: 8px;
   background: #fff;
-  box-shadow: 0rem -0.0625rem 0rem 0rem #b5b5b5 inset, 0rem 0rem 0rem 0.0625rem rgba(0, 0, 0, .1) inset, 0rem 0.03125rem 0rem 0.09375rem #fff inset;
+  box-shadow:
+    0rem -0.0625rem 0rem 0rem #b5b5b5 inset,
+    0rem 0rem 0rem 0.0625rem rgba(0, 0, 0, 0.1) inset,
+    0rem 0.03125rem 0rem 0.09375rem #fff inset;
   height: 28px;
   padding: 4px 12px;
   font-weight: 500;
@@ -1586,7 +1623,7 @@ table.table {
   display: flex;
   align-items: center;
   border: 1px solid #dee2e6;
-  border-radius: .25rem;
+  border-radius: 0.25rem;
   padding: 4px 7px;
   gap: 17px;
 }
@@ -1654,7 +1691,7 @@ table.table {
 }
 
 .btn-disable {
-  background: rgba(0, 0, 0, .05) !important;
+  background: rgba(0, 0, 0, 0.05) !important;
   cursor: default !important;
   box-shadow: none;
   border: none;
@@ -1740,7 +1777,7 @@ table.table {
   width: 40px;
   height: 40px;
   border-radius: 8px;
-  border: 1px solid #E5E5E4;
+  border: 1px solid #e5e5e4;
 }
 
 .optimizerProduct-imgHover {
@@ -1776,7 +1813,7 @@ table.table {
 }
 
 .sc-hLQSwg {
-  padding: .5rem .5rem !important;
+  padding: 0.5rem 0.5rem !important;
 }
 
 .kUMlDB {
@@ -1795,7 +1832,6 @@ table.table {
 .optimizerList-box {
   margin-bottom: 30px;
 }
-
 
 .popover {
   white-space: pre-line;
@@ -2088,7 +2124,12 @@ table.table {
   background-color: #fff;
   border-radius: 12px;
   text-decoration: none;
-  box-shadow: 0px 2px 0px 0px rgba(26, 26, 26, 0.07), 0px 0px 0px 0px rgba(204, 204, 204, 0.50) inset, 0px 0px 0px 0px rgba(0, 0, 0, 0.17) inset, 0px 0px 0px 0px rgba(0, 0, 0, 0.13) inset, 0px 0px 0px 0px rgba(0, 0, 0, 0.13) inset;
+  box-shadow:
+    0px 2px 0px 0px rgba(26, 26, 26, 0.07),
+    0px 0px 0px 0px rgba(204, 204, 204, 0.5) inset,
+    0px 0px 0px 0px rgba(0, 0, 0, 0.17) inset,
+    0px 0px 0px 0px rgba(0, 0, 0, 0.13) inset,
+    0px 0px 0px 0px rgba(0, 0, 0, 0.13) inset;
   border-color: #dee2e6;
 }
 
@@ -2096,7 +2137,12 @@ table.table {
   background-color: #fff;
   border-radius: 12px;
   text-decoration: none;
-  box-shadow: 0px 2px 0px 0px rgba(26, 26, 26, 0.07), 0px 0px 0px 0px rgba(204, 204, 204, 0.50) inset, 0px 0px 0px 0px rgba(0, 0, 0, 0.17) inset, 0px 0px 0px 0px rgba(0, 0, 0, 0.13) inset, 0px 0px 0px 0px rgba(0, 0, 0, 0.13) inset;
+  box-shadow:
+    0px 2px 0px 0px rgba(26, 26, 26, 0.07),
+    0px 0px 0px 0px rgba(204, 204, 204, 0.5) inset,
+    0px 0px 0px 0px rgba(0, 0, 0, 0.17) inset,
+    0px 0px 0px 0px rgba(0, 0, 0, 0.13) inset,
+    0px 0px 0px 0px rgba(0, 0, 0, 0.13) inset;
   border: 1px solid #dee2e6;
   position: absolute;
   width: 100%;
@@ -2293,11 +2339,16 @@ table.table {
 }
 
 .grid-column-4 {
-  grid-template-columns: repeat(4, minmax(0, 1fr))
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
 .card-border {
-  box-shadow: 1px 0px 0px 0px rgba(0, 0, 0, 0.13) inset, -1px 0px 0px 0px rgba(0, 0, 0, 0.13) inset, 0px -1px 0px 0px rgba(0, 0, 0, 0.17) inset, 0px 1px 0px 0px rgba(204, 204, 204, 0.50) inset, 0px 1px 0px 0px rgba(26, 26, 26, 0.07);
+  box-shadow:
+    1px 0px 0px 0px rgba(0, 0, 0, 0.13) inset,
+    -1px 0px 0px 0px rgba(0, 0, 0, 0.13) inset,
+    0px -1px 0px 0px rgba(0, 0, 0, 0.17) inset,
+    0px 1px 0px 0px rgba(204, 204, 204, 0.5) inset,
+    0px 1px 0px 0px rgba(26, 26, 26, 0.07);
   border-radius: 12px;
   padding: 16px;
 }
@@ -2358,7 +2409,11 @@ table.table {
 }
 
 .faqCollapse-box .collapseBox .card,
-.faqCollapse-box .accordion .accordion-item .accordion-collapse .accordion-body {
+.faqCollapse-box
+  .accordion
+  .accordion-item
+  .accordion-collapse
+  .accordion-body {
   box-shadow: none;
   border: none;
   padding: 0;
@@ -2386,7 +2441,10 @@ table.table {
   width: 76px;
 }
 
-.reportWeekly-toggle .vc-toggle-container .vc-switch-input:checked~.vc-switch-label {
+.reportWeekly-toggle
+  .vc-toggle-container
+  .vc-switch-input:checked
+  ~ .vc-switch-label {
   background: #e0f0ff;
 }
 
@@ -2394,7 +2452,10 @@ table.table {
   color: #00527c;
 }
 
-.reportWeekly-toggle .vc-toggle-container .vc-switch-input:checked~.vc-switch-handle {
+.reportWeekly-toggle
+  .vc-toggle-container
+  .vc-switch-input:checked
+  ~ .vc-switch-handle {
   background: #00527c;
 }
 
@@ -2432,10 +2493,10 @@ table.table {
 
 .AllSelected-inner {
   background: #e7e7e7;
-  border-radius: .5rem;
+  border-radius: 0.5rem;
   padding: 6px 14px;
   margin-top: 20px;
-  display: inline-block
+  display: inline-block;
 }
 
 .plain-btn {
@@ -2537,12 +2598,12 @@ table.table {
 }
 
 .rs-progress-line-bg {
-  background: #3F3F3F;
+  background: #3f3f3f;
 }
 
 .rs-picker-has-value .rs-btn .rs-picker-toggle-value,
 .rs-picker-has-value .rs-picker-toggle .rs-picker-toggle-value {
-  color: #3F3F3F !important;
+  color: #3f3f3f !important;
   font-size: 13px;
 }
 
@@ -2552,17 +2613,17 @@ table.table {
 }
 
 .rs-pagination-btn.rs-pagination-btn-active {
-  background-color: #3F3F3F;
-  border: 1px solid #3F3F3F;
+  background-color: #3f3f3f;
+  border: 1px solid #3f3f3f;
   color: #ffffff;
 }
 
 .rs-pagination-btn.rs-pagination-btn-active:focus,
 .rs-pagination-btn.rs-pagination-btn-active:hover {
-  border-color: #3F3F3F !important;
-  -webkit-box-shadow: 0 0 0 1px #3F3F3F !important;
+  border-color: #3f3f3f !important;
+  -webkit-box-shadow: 0 0 0 1px #3f3f3f !important;
   box-shadow: inherit !important;
-  color: #3F3F3F !important;
+  color: #3f3f3f !important;
 }
 
 .dashboard-box a:hover {
@@ -2570,11 +2631,11 @@ table.table {
 }
 
 .rs-slider-progress-bar {
-  background-color: #3F3F3F !important;
+  background-color: #3f3f3f !important;
 }
 
 .rs-slider-handle::before {
-  border: 2px solid #3F3F3F !important;
+  border: 2px solid #3f3f3f !important;
   background-color: #fff;
 }
 
@@ -2626,7 +2687,9 @@ table.table {
   min-width: 107px;
 }
 
-.ga-connect-date .rs-input-group.rs-input-group-inside .rs-date-range-input.rs-input {
+.ga-connect-date
+  .rs-input-group.rs-input-group-inside
+  .rs-date-range-input.rs-input {
   width: 205px;
 }
 
@@ -2678,7 +2741,12 @@ p.table-mainHeading {
   right: 54px !important;
   left: initial !important;
   top: 38px !important;
-  box-shadow: 0px 1px 0px 0px #000 inset, 0px 0px 0px 1px #000 inset, -2px 0px 0px 0px rgba(255, 255, 255, 0.20) inset, 2px 0px 0px 0px rgba(255, 255, 255, 0.20) inset, 1px 2px 0px 0px rgba(255, 255, 255, 0.20) inset;
+  box-shadow:
+    0px 1px 0px 0px #000 inset,
+    0px 0px 0px 1px #000 inset,
+    -2px 0px 0px 0px rgba(255, 255, 255, 0.2) inset,
+    2px 0px 0px 0px rgba(255, 255, 255, 0.2) inset,
+    1px 2px 0px 0px rgba(255, 255, 255, 0.2) inset;
   border-radius: 4px;
   width: 32px !important;
   height: 32px !important;
@@ -2694,7 +2762,12 @@ p.table-mainHeading {
   right: 15px !important;
   left: initial !important;
   top: 38px !important;
-  box-shadow: 0px 1px 0px 0px #000 inset, 0px 0px 0px 1px #000 inset, -2px 0px 0px 0px rgba(255, 255, 255, 0.20) inset, 2px 0px 0px 0px rgba(255, 255, 255, 0.20) inset, 1px 2px 0px 0px rgba(255, 255, 255, 0.20) inset;
+  box-shadow:
+    0px 1px 0px 0px #000 inset,
+    0px 0px 0px 1px #000 inset,
+    -2px 0px 0px 0px rgba(255, 255, 255, 0.2) inset,
+    2px 0px 0px 0px rgba(255, 255, 255, 0.2) inset,
+    1px 2px 0px 0px rgba(255, 255, 255, 0.2) inset;
   border-radius: 4px;
   width: 32px !important;
   height: 32px !important;
@@ -2782,6 +2855,22 @@ p.table-mainHeading {
   cursor: not-allowed;
 }
 
+/* Disable form field – use on .form-control, input, select, textarea */
+.field-disable,
+.field-disable input,
+.field-disable select,
+.field-disable textarea,
+input.field-disable,
+select.field-disable,
+textarea.field-disable {
+  /* pointer-events: none; */
+  opacity: 0.65;
+  cursor: not-allowed;
+  background-color: var(--bs-secondary-bg, #e9ecef) !important;
+  color: #6c757d;
+  cursor: not-allowed;
+}
+
 .rs-input {
   min-width: 100px;
 }
@@ -2853,7 +2942,7 @@ p.table-mainHeading {
 }
 
 .copilot-settingDropi .dropdown .dropdown-toggle::after {
-  border-top: .3em solid #5e5e5e;
+  border-top: 0.3em solid #5e5e5e;
 }
 
 .copilotRight-scroll .seoOptimizer-left {
@@ -2914,12 +3003,18 @@ p.table-mainHeading {
   content: inherit;
 }
 
-.imageOptimize-settingCruise .accordion-header button.accordion-button .cruise-dropdown-icon {
+.imageOptimize-settingCruise
+  .accordion-header
+  button.accordion-button
+  .cruise-dropdown-icon {
   transform: rotate(180deg);
   transition: transform 0.3s ease-in-out;
 }
 
-.imageOptimize-settingCruise .accordion-header button.accordion-button.collapsed .cruise-dropdown-icon {
+.imageOptimize-settingCruise
+  .accordion-header
+  button.accordion-button.collapsed
+  .cruise-dropdown-icon {
   transform: rotate(0deg);
 }
 
@@ -2936,7 +3031,9 @@ p.table-mainHeading {
   margin-bottom: 12px;
 }
 
-.optimizerList-box .optimizerProduct-actionInfo button.custom-btn.black-iconBtn {
+.optimizerList-box
+  .optimizerProduct-actionInfo
+  button.custom-btn.black-iconBtn {
   width: 44px;
   height: 33px;
 }
@@ -2950,7 +3047,7 @@ p.table-mainHeading {
 
 .infoCard {
   padding: 16px;
-  box-shadow: 0 .0625rem 0 0 rgba(26, 26, 26, .07);
+  box-shadow: 0 0.0625rem 0 0 rgba(26, 26, 26, 0.07);
   border-radius: 12px;
   position: relative;
   background: #fffbeb;
@@ -2964,7 +3061,11 @@ p.table-mainHeading {
   right: 0;
   bottom: 0;
   z-index: 32px;
-  box-shadow: 0.0625rem 0rem 0rem 0rem rgba(0, 0, 0, 0.13) inset, -0.0625rem 0rem 0rem 0rem rgba(0, 0, 0, 0.13) inset, 0rem -0.0625rem 0rem 0rem rgba(0, 0, 0, 0.17) inset, 0rem 0.0625rem 0rem 0rem rgba(204, 204, 204, 0.5) inset;
+  box-shadow:
+    0.0625rem 0rem 0rem 0rem rgba(0, 0, 0, 0.13) inset,
+    -0.0625rem 0rem 0rem 0rem rgba(0, 0, 0, 0.13) inset,
+    0rem -0.0625rem 0rem 0rem rgba(0, 0, 0, 0.17) inset,
+    0rem 0.0625rem 0rem 0rem rgba(204, 204, 204, 0.5) inset;
   border-radius: 12px;
   pointer-events: none;
   mix-blend-mode: luminosity;
@@ -2990,8 +3091,8 @@ p.table-mainHeading {
   height: 6px;
   margin-left: 8px;
   vertical-align: middle;
-  border-left: 2px solid #FFFFFF;
-  border-bottom: 2px solid #FFFFFF;
+  border-left: 2px solid #ffffff;
+  border-bottom: 2px solid #ffffff;
   transform: rotate(-45deg);
   border-top: transparent;
   border-right: transparent;
@@ -3048,7 +3149,7 @@ p.table-mainHeading {
 }
 
 .inputLabelNew {
-  background: linear-gradient(#F8FAFC, #fff);
+  background: linear-gradient(#f8fafc, #fff);
   color: #616161 !important;
   padding: 0 6px;
   font-weight: 500;
@@ -3075,10 +3176,10 @@ p.table-mainHeading {
 
 .RestoreDropdownMenu.dropdown-menu .dropdown-item {
   font-size: 13px;
-  padding: .375rem;
+  padding: 0.375rem;
   color: #212529;
   font-weight: 500;
-  border-radius: .5rem;
+  border-radius: 0.5rem;
 }
 
 .RestoreDropdownMenu.dropdown-menu .dropdown-item:hover {
@@ -3089,7 +3190,7 @@ p.table-mainHeading {
   background: #fdfdfd;
   height: 28px;
   min-height: 28px;
-  border: .66px solid #8a8a8a !important;
+  border: 0.66px solid #8a8a8a !important;
 }
 
 .custom-table tbody tr td.tableHeading-name a img {
@@ -3122,10 +3223,8 @@ p.table-mainHeading {
   gap: 20px;
 }
 
-
-
-
-@media screen and (max-width: 1680px) {}
+@media screen and (max-width: 1680px) {
+}
 
 @media screen and (max-width: 1400px) {
   .ga-connect-date {
@@ -3177,7 +3276,7 @@ p.table-mainHeading {
     padding-left: 100px;
   }
 
-  .ck.ck-toolbar.ck-toolbar_grouping>.ck-toolbar__items {
+  .ck.ck-toolbar.ck-toolbar_grouping > .ck-toolbar__items {
     flex-wrap: wrap !important;
   }
 }
@@ -3289,7 +3388,8 @@ p.table-mainHeading {
     flex-direction: column;
   }
 
-  .content-frame-head.ga-connectFrame-head .content-frameHead-left.align-item-center,
+  .content-frame-head.ga-connectFrame-head
+    .content-frameHead-left.align-item-center,
   .content-frame-head.ga-connectFrame-head .content-frameHead-right {
     width: 100%;
   }
@@ -3316,21 +3416,21 @@ p.table-mainHeading {
 }
 
 @media screen and (max-width: 1135px) {
-.pricingTable-top {
-  position: initial;
-}
+  .pricingTable-top {
+    position: initial;
+  }
 
-.invoiceLink-tab {
-  display: none;
-}
+  .invoiceLink-tab {
+    display: none;
+  }
 
-.pricingTable-top-inner {
-  flex-direction: column;
-}
+  .pricingTable-top-inner {
+    flex-direction: column;
+  }
 
-.pricingTable-top-inner .card {
-  width: 100%;
-}
+  .pricingTable-top-inner .card {
+    width: 100%;
+  }
 }
 
 @media screen and (max-width: 1100px) {
@@ -3681,12 +3781,10 @@ p.table-mainHeading {
 
   .report-filedLeft .d-flex {
     flex-wrap: wrap;
-  }  
+  }
 }
 
-
 @media screen and (max-width: 767px) {
-
   .col-md-4.dashboard-seoOptimizer-box,
   .col-md-5.dashboard-bulkOptimizer-box {
     width: 100%;
@@ -3910,7 +4008,12 @@ p.table-mainHeading {
     height: calc(100vh - 290px);
   }
 
-  .bulk-update-main-btn .dropdown .BulkOptimizer-BtnOpen ul li .recommended-btn.dropdown-item {
+  .bulk-update-main-btn
+    .dropdown
+    .BulkOptimizer-BtnOpen
+    ul
+    li
+    .recommended-btn.dropdown-item {
     white-space: initial;
   }
 
@@ -3937,7 +4040,9 @@ p.table-mainHeading {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
-  .dashboard-errorMain-box .dashboard-feature-output.d-grid.grid-column-5 .dashboard-featureBox:nth-child(3) {
+  .dashboard-errorMain-box
+    .dashboard-feature-output.d-grid.grid-column-5
+    .dashboard-featureBox:nth-child(3) {
     border-right: none;
   }
 
