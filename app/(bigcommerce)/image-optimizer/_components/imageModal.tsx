@@ -59,13 +59,17 @@ const ImageModal = forwardRef<ImageModalRef, ImageModalProps>((props, ref) => {
         >
           <Offcanvas.Title>
             <div className="">
-              <p className="text-xs text-[#616161] font-normal uppercase">Image Optimizer</p>
-              <h4 className="text-base font-semibold mb-[2px]">Image Optimizer Settings</h4>
+              <p className="text-xs text-[#616161] font-normal uppercase">
+                Image Optimizer
+              </p>
+              <h4 className="text-base font-semibold mb-[2px]">
+                Image Optimizer Settings
+              </h4>
               <p className="text-xs text-[#616161] font-normal">
-              Control how SEOKart renames images, generates alt text and compresses images for your store.
+                Control how SEOKart renames images, generates alt text and
+                compresses images for your store.
               </p>
             </div>
-            
           </Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
