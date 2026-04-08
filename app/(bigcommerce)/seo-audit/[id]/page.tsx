@@ -132,9 +132,9 @@ export default function Home({ params }: { params: { id: number } }) {
   const imageModalRef = useRef<ImageModalRef>(null);
 
   useEffect(() => {
-    const channelObj = JSON.parse(localStorage.getItem("channel") ?? "");
+    const channelObj = JSON.parse(localStorage?.getItem("channel") ?? "");
     setHomeUrl(channelObj.domain);
-    setStoreHash(localStorage.getItem("shop") ?? "");
+    setStoreHash(localStorage?.getItem("shop") ?? "");
   }, []);
 
   const getProductImages = () => {

@@ -147,7 +147,7 @@ export default function Home(Props: any) {
   };
 
   const getSeoAuditCount = (refresh = 0) => {
-    const isPaid = localStorage.getItem("manage_service") ?? 0;
+    const isPaid = localStorage?.getItem("manage_service") ?? 0;
     Api("getSeoAuditCount", { refresh: refresh }).then((res: any) => {
       const data = res?.data;
       if (!data) return;
@@ -263,8 +263,8 @@ export default function Home(Props: any) {
   };
 
   useEffect(() => {
-    setSignedPayload(localStorage.getItem("signedPayload") ?? "");
-    setIsPaidUser((localStorage.getItem("manage_service") ?? "0") === "1");
+    setSignedPayload(localStorage?.getItem("signedPayload") ?? "");
+    setIsPaidUser((localStorage?.getItem("manage_service") ?? "0") === "1");
     return () => {
       clearTimeout(timeOutId.current);
       clearTimeout(titleTagTimeoutRef.current);

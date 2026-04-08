@@ -12,10 +12,10 @@ function Home() {
   const [channelId, setChannelId] = useState<any>(1);
 
   const getChannelList = () => {
-    Api("getChannelList", { store_id: localStorage.getItem("user_id") }).then(
+    Api("getChannelList", { store_id: localStorage?.getItem("user_id") }).then(
       ({ data }: any) => {
         setList(data);
-        if (!localStorage.getItem("channel")) {
+        if (!localStorage?.getItem("channel")) {
           localStorage.setItem("channel", JSON.stringify(data[0]));
         }
       },
@@ -40,8 +40,8 @@ function Home() {
 
   useEffect(() => {
     setChannelId(
-      (localStorage.getItem("channel") &&
-        JSON.parse(localStorage.getItem("channel") ?? "").channel_id) ||
+      (localStorage?.getItem("channel") &&
+        JSON.parse(localStorage?.getItem("channel") ?? "").channel_id) ||
         1,
     );
     getChannelList();

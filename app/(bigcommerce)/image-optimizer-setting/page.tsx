@@ -29,7 +29,8 @@ export default function Home(Props: any) {
   const [buttonLoading, setButtonLoading] = useState(false);
 
   const [cruiseControlData, setCruiseControlData] = useState([]);
-  const [cruiseControlHistoryLoading, setCruiseControlHistoryLoading] = useState(true);
+  const [cruiseControlHistoryLoading, setCruiseControlHistoryLoading] =
+    useState(true);
 
   // Helper function to check if at least one toggle is enabled
   const isAnyToggleEnabled = () => {
@@ -55,9 +56,9 @@ export default function Home(Props: any) {
       setCurrency(data.currency_code);
 
       // Check if user is on free plan - if yes, force cruise control to false
-      const isPaidUser = localStorage.getItem("manage_service") == "1";
+      const isPaidUser = localStorage?.getItem("manage_service") == "1";
       const cruiseControlValue = data.cruise_control;
-      
+
       // Auto-disable cruise control for free users (even if API returns true)
       if (!isPaidUser) {
         // Force cruise control to false for free users
@@ -65,13 +66,13 @@ export default function Home(Props: any) {
         // If backend returned true but user is free, update backend using updateImageSetting format
         if (cruiseControlValue) {
           // Prepare setting data in the exact same format as updateImageSetting
-          const fileNameArray = setting?.file_name_data?.file_data 
-            ? setting.file_name_data.file_data.split(", ") 
+          const fileNameArray = setting?.file_name_data?.file_data
+            ? setting.file_name_data.file_data.split(", ")
             : ["[[name]]"];
-          const altTextArray = setting?.alt_data?.alt_data 
-            ? setting.alt_data.alt_data.split(", ") 
+          const altTextArray = setting?.alt_data?.alt_data
+            ? setting.alt_data.alt_data.split(", ")
             : ["[[name]]"];
-          
+
           // Prepare setting data in the exact same format as updateImageSetting function
           // Match the exact format: alt_status should be boolean like in updateImageSetting
           const settingData = {
@@ -89,33 +90,49 @@ export default function Home(Props: any) {
               cnvrt_png_jpg: setting?.file_size_data?.cnvrt_png_jpg == "1", // Use boolean to match format
             },
           };
-          
+
           // Update backend to disable cruise control - use exact same API call format as updateImageSetting
           Api("imageOptimizer/updateImageSetting", {
             setting_data: JSON.stringify(settingData),
             cruise_status: false,
-          }).then((response) => {
-            // After successful update, verify by calling getImageSetting again after a short delay
-            setTimeout(() => {
-              Api("imageOptimizer/getImageSetting").then(({ data: refreshData }) => {
-                // Verify cruise control is now false in API response
-                const updatedCruiseControl = refreshData.cruise_control;
-                if (updatedCruiseControl === false || updatedCruiseControl === 0 || updatedCruiseControl === "0") {
-                  setCruiseControl(false);
-                  console.log("Cruise control successfully disabled in backend");
-                } else {
-                  // If still enabled, log warning (might need backend fix)
-                  console.warn("Cruise control still enabled in API response:", updatedCruiseControl);
-                  setCruiseControl(false); // Force frontend to false anyway
-                }
-              }).catch((err) => {
-                console.error("Error verifying cruise control update:", err);
-              });
-            }, 1000); // Wait 1 second for backend to process
-          }).catch((error) => {
-            console.error("Error updating cruise control:", error);
-            toast.error("Failed to update cruise control setting.");
-          });
+          })
+            .then((response) => {
+              // After successful update, verify by calling getImageSetting again after a short delay
+              setTimeout(() => {
+                Api("imageOptimizer/getImageSetting")
+                  .then(({ data: refreshData }) => {
+                    // Verify cruise control is now false in API response
+                    const updatedCruiseControl = refreshData.cruise_control;
+                    if (
+                      updatedCruiseControl === false ||
+                      updatedCruiseControl === 0 ||
+                      updatedCruiseControl === "0"
+                    ) {
+                      setCruiseControl(false);
+                      console.log(
+                        "Cruise control successfully disabled in backend",
+                      );
+                    } else {
+                      // If still enabled, log warning (might need backend fix)
+                      console.warn(
+                        "Cruise control still enabled in API response:",
+                        updatedCruiseControl,
+                      );
+                      setCruiseControl(false); // Force frontend to false anyway
+                    }
+                  })
+                  .catch((err) => {
+                    console.error(
+                      "Error verifying cruise control update:",
+                      err,
+                    );
+                  });
+              }, 1000); // Wait 1 second for backend to process
+            })
+            .catch((error) => {
+              console.error("Error updating cruise control:", error);
+              toast.error("Failed to update cruise control setting.");
+            });
         }
       } else {
         // Paid users can use cruise control as returned by API
@@ -134,11 +151,11 @@ export default function Home(Props: any) {
 
   const updateImageSetting = () => {
     setButtonLoading(true);
-    const isPaidUser = localStorage.getItem("manage_service") == "1";
-    
+    const isPaidUser = localStorage?.getItem("manage_service") == "1";
+
     // Ensure free users can't save with cruise control ON
     const finalCruiseControl = isPaidUser ? cruiseControl : false;
-    
+
     const settingData = {
       file_name_status: Number(fileNameStatus),
       alt_status: altTextStatus,
@@ -167,14 +184,16 @@ export default function Home(Props: any) {
 
   const getCruiseControlHistory = () => {
     setCruiseControlHistoryLoading(true);
-    Api("imageOptimizer/getCruiseControlHistory").then(({ data }) => {
-      setCruiseControlData(data || []);
-      setCruiseControlHistoryLoading(false);
-    }).catch((error) => {
-      console.error("Error fetching cruise control history:", error);
-      setCruiseControlData([]);
-      setCruiseControlHistoryLoading(false);
-    });
+    Api("imageOptimizer/getCruiseControlHistory")
+      .then(({ data }) => {
+        setCruiseControlData(data || []);
+        setCruiseControlHistoryLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching cruise control history:", error);
+        setCruiseControlData([]);
+        setCruiseControlHistoryLoading(false);
+      });
   };
 
   useEffect(() => {
@@ -191,7 +210,7 @@ export default function Home(Props: any) {
 
   // Auto-disable cruise control when user switches to free plan
   useEffect(() => {
-    const isPaidUser = localStorage.getItem("manage_service") == "1";
+    const isPaidUser = localStorage?.getItem("manage_service") == "1";
     // If user is on free plan and cruise control is ON, disable it
     if (!isPaidUser && cruiseControl) {
       setCruiseControl(false);
@@ -210,7 +229,9 @@ export default function Home(Props: any) {
         }),
         cruise_status: false,
       }).then(() => {
-        toast.info("Cruise Control has been disabled as you're on a free plan.");
+        toast.info(
+          "Cruise Control has been disabled as you're on a free plan.",
+        );
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -279,7 +300,7 @@ export default function Home(Props: any) {
                       onChange={() => {
                         // Check if user has manage_service or is trying to turn OFF cruise control
                         if (
-                          localStorage.getItem("manage_service") == "1" ||
+                          localStorage?.getItem("manage_service") == "1" ||
                           cruiseControl == true
                         ) {
                           // If trying to enable, check if at least one toggle is ON
@@ -287,7 +308,9 @@ export default function Home(Props: any) {
                             if (isAnyToggleEnabled()) {
                               setCruiseControl(true);
                             } else {
-                              toast.error("Enable atleast one setting to use the Cruise Control feature.");
+                              toast.error(
+                                "Enable atleast one setting to use the Cruise Control feature.",
+                              );
                             }
                           } else {
                             // Turning OFF is always allowed
@@ -371,7 +394,8 @@ export default function Home(Props: any) {
                                   <Spinner size="sm" />
                                 </td>
                               </tr>
-                            ) : cruiseControlData && cruiseControlData.length > 0 ? (
+                            ) : cruiseControlData &&
+                              cruiseControlData.length > 0 ? (
                               cruiseControlData.map((item: any, key) => (
                                 <tr key={key}>
                                   <td>{item.created_at}</td>
@@ -383,7 +407,10 @@ export default function Home(Props: any) {
                               ))
                             ) : (
                               <tr>
-                                <td colSpan={3} className="text-center py-4 text-[#616161]">
+                                <td
+                                  colSpan={3}
+                                  className="text-center py-4 text-[#616161]"
+                                >
                                   No Items found
                                 </td>
                               </tr>
@@ -404,10 +431,13 @@ export default function Home(Props: any) {
               <div className="flex flex-col gap-1">
                 <h3 className="text-sm font-bold text-[#303030] flex items-center gap-2">
                   File Size Optimization
-                  <span className="badge badge-success !rounded-full">Faster page loads</span>
+                  <span className="badge badge-success !rounded-full">
+                    Faster page loads
+                  </span>
                 </h3>
                 <p className="text-xs text-[#616161] font-normal">
-                  Compress images to reduce file size while keeping visual quality suitable for ecommerce.
+                  Compress images to reduce file size while keeping visual
+                  quality suitable for ecommerce.
                 </p>
               </div>
 
@@ -425,7 +455,12 @@ export default function Home(Props: any) {
                         setQuality("medium");
                       }
                       // Check if all toggles are OFF and disable cruise control if needed
-                      if (!newStatus && !fileNameStatus && !altTextStatus && cruiseControl) {
+                      if (
+                        !newStatus &&
+                        !fileNameStatus &&
+                        !altTextStatus &&
+                        cruiseControl
+                      ) {
                         setCruiseControl(false);
                       }
                     }}
@@ -510,9 +545,9 @@ export default function Home(Props: any) {
                     Convert PNG to JPEG
                   </h2>
                   <p className="text-xs text-[#616161] font-normal mt-[2px]">
-                    Recommended for product photos without transparency. 
+                    Recommended for product photos without transparency.
                   </p>
-                  
+
                   <div className="flex gap-4 mt-3">
                     <div className="form-check">
                       <input
@@ -524,10 +559,7 @@ export default function Home(Props: any) {
                         onChange={() => setCnvrtPTJ(true)}
                         disabled={!fileSizeStatus}
                       />
-                      <label
-                        className="form-check-label"
-                        htmlFor="cnvrtPTJ-on"
-                      >
+                      <label className="form-check-label" htmlFor="cnvrtPTJ-on">
                         On
                       </label>
                     </div>
@@ -578,7 +610,12 @@ export default function Home(Props: any) {
                         const newStatus = !fileNameStatus;
                         setFileNameStatus(newStatus);
                         // Check if all toggles are OFF and disable cruise control if needed
-                        if (!newStatus && !altTextStatus && !fileSizeStatus && cruiseControl) {
+                        if (
+                          !newStatus &&
+                          !altTextStatus &&
+                          !fileSizeStatus &&
+                          cruiseControl
+                        ) {
                           setCruiseControl(false);
                         }
                       }}
@@ -816,7 +853,12 @@ export default function Home(Props: any) {
                         const newStatus = !altTextStatus;
                         setAltTextStatus(newStatus);
                         // Check if all toggles are OFF and disable cruise control if needed
-                        if (!newStatus && !fileNameStatus && !fileSizeStatus && cruiseControl) {
+                        if (
+                          !newStatus &&
+                          !fileNameStatus &&
+                          !fileSizeStatus &&
+                          cruiseControl
+                        ) {
                           setCruiseControl(false);
                         }
                       }}
@@ -1028,35 +1070,34 @@ export default function Home(Props: any) {
                 </div>
               </div>
             </div>
-          </div>          
+          </div>
 
           <div className="flex justify-start items-center gap-2 border-t border-[#ddd] -ml-4 -mr-4 pl-4 pr-4 pt-3">
             <div className="flex flex-col gap-2">
               <p className="text-xs text-[#616161] font-normal">
-                These settings will apply to all future image optimizations. Existing optimized images will not be changed.
+                These settings will apply to all future image optimizations.
+                Existing optimized images will not be changed.
               </p>
 
               <div className="flex gap-2">
                 <button
-                type="button"
-                className="btn btn-default"
-                onClick={Props.onClose}
-              >
-                Cancel
-              </button>
+                  type="button"
+                  className="btn btn-default"
+                  onClick={Props.onClose}
+                >
+                  Cancel
+                </button>
 
-              <button
-                type="button"
-                className="custom-btn tab-fullWidth"
-                onClick={updateImageSetting}
-                disabled={buttonLoading}
-              >
-                {buttonLoading ? <Spinner size="sm" /> : "Save"}
-              </button>
+                <button
+                  type="button"
+                  className="custom-btn tab-fullWidth"
+                  onClick={updateImageSetting}
+                  disabled={buttonLoading}
+                >
+                  {buttonLoading ? <Spinner size="sm" /> : "Save"}
+                </button>
               </div>
             </div>
-            
-            
           </div>
         </div>
       </div>

@@ -35,8 +35,11 @@ export default function Home() {
   return (
     <>
       {loading ? (
+
         <Loading />
-      ) : validUser ? (
+      ) 
+      :
+       validUser ? (
         <Layout>
           <Dashboard />
         </Layout>

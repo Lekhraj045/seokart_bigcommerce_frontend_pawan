@@ -25,7 +25,7 @@ export default function Home(Props: any) {
     if (hasCalledRef.current) return;
     hasCalledRef.current = true;
 
-    setIsPaidUser((localStorage.getItem("manage_service") ?? "0") === "1");
+    setIsPaidUser((localStorage?.getItem("manage_service") ?? "0") === "1");
 
     // Set loading states
     setScoreData((prev: any) => ({ ...prev, loading: true }));
@@ -60,19 +60,20 @@ export default function Home(Props: any) {
     });
 
     // refreshDashboardData - on 200, call getScoreAndErrorData again
-    const channel = localStorage.getItem("channel");
+    const channel = localStorage?.getItem("channel");
     const channelId = channel ? (JSON.parse(channel)?.channel_id ?? 1) : 1;
     const refreshPayload = {
-      shop: localStorage.getItem("shop") ?? "",
-      channel_id: typeof channelId === "string" ? parseInt(channelId, 10) : channelId,
-      store_id: localStorage.getItem("user_id") ?? "",
+      shop: localStorage?.getItem("shop") ?? "",
+      channel_id:
+        typeof channelId === "string" ? parseInt(channelId, 10) : channelId,
+      store_id: localStorage?.getItem("user_id") ?? "",
     };
 
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/refreshDashboardData`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "api-token": localStorage.getItem("api-token") ?? "",
+        "api-token": localStorage?.getItem("api-token") ?? "",
         "app-key": `${process.env.NEXT_PUBLIC_API_KEY}`,
       },
       body: JSON.stringify(refreshPayload),
@@ -85,7 +86,8 @@ export default function Home(Props: any) {
               scoreResponse?.data?.errorCount?.broken_link_issue || 0,
             image_issue: scoreResponse?.data?.errorCount?.image_issue || 0,
             content_issue: scoreResponse?.data?.errorCount?.content_issue || 0,
-            meta_tag_issue: scoreResponse?.data?.errorCount?.meta_tag_issue || 0,
+            meta_tag_issue:
+              scoreResponse?.data?.errorCount?.meta_tag_issue || 0,
           };
           setScoreData({
             loading: false,
@@ -306,10 +308,11 @@ export default function Home(Props: any) {
             <div className="grid grid-cols-2 sm:grid-cols-3 sm:gap-2 lg:grid-cols-5 gap-3 ">
               <div className="flex items-start sm:items-center gap-2 sm:gap-3 flex-col sm:flex-row">
                 {(() => {
-                  const completed = count.data?.individual_db_count?.product || 0;
+                  const completed =
+                    count.data?.individual_db_count?.product || 0;
                   const total = count.data?.individual_live_count?.product || 0;
                   const isComplete = !count.loading && completed === total;
-                  
+
                   return (
                     <div
                       className={`rounded-full w-[30px] h-[30px] min-w-[30px] min-h-[30px] flex items-center justify-center ${
@@ -342,10 +345,12 @@ export default function Home(Props: any) {
 
               <div className="flex items-start sm:items-center gap-2 sm:gap-3 flex-col sm:flex-row">
                 {(() => {
-                  const completed = count.data?.individual_db_count?.category || 0;
-                  const total = count.data?.individual_live_count?.category || 0;
+                  const completed =
+                    count.data?.individual_db_count?.category || 0;
+                  const total =
+                    count.data?.individual_live_count?.category || 0;
                   const isComplete = !count.loading && completed === total;
-                  
+
                   return (
                     <div
                       className={`rounded-full w-[30px] h-[30px] min-w-[30px] min-h-[30px] flex items-center justify-center ${
@@ -381,7 +386,7 @@ export default function Home(Props: any) {
                   const completed = count.data?.individual_db_count?.brand || 0;
                   const total = count.data?.individual_live_count?.brand || 0;
                   const isComplete = !count.loading && completed === total;
-                  
+
                   return (
                     <div
                       className={`rounded-full w-[30px] h-[30px] min-w-[30px] min-h-[30px] flex items-center justify-center ${
@@ -417,7 +422,7 @@ export default function Home(Props: any) {
                   const completed = count.data?.individual_db_count?.page || 0;
                   const total = count.data?.individual_live_count?.page || 0;
                   const isComplete = !count.loading && completed === total;
-                  
+
                   return (
                     <div
                       className={`rounded-full w-[30px] h-[30px] min-w-[30px] min-h-[30px] flex items-center justify-center ${
@@ -453,7 +458,7 @@ export default function Home(Props: any) {
                   const completed = count.data?.individual_db_count?.blog || 0;
                   const total = count.data?.individual_live_count?.blog || 0;
                   const isComplete = !count.loading && completed === total;
-                  
+
                   return (
                     <div
                       className={`rounded-full w-[30px] h-[30px] min-w-[30px] min-h-[30px] flex items-center justify-center ${

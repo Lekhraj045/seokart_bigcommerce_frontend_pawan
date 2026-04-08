@@ -29,7 +29,7 @@ export default function Home() {
   const [isPaidUser, setIsPaidUser] = useState(false);
 
   useEffect(() => {
-    setIsPaidUser((localStorage.getItem("manage_service") ?? "0") === "1");
+    setIsPaidUser((localStorage?.getItem("manage_service") ?? "0") === "1");
   }, []);
 
   const synchronization = () => {

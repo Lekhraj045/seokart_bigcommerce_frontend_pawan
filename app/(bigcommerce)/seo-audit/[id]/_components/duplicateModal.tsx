@@ -30,7 +30,7 @@ export default function Home(Props: any) {
   };
 
   useEffect(() => {
-    const channelObj = JSON.parse(localStorage.getItem("channel") ?? "");
+    const channelObj = JSON.parse(localStorage?.getItem("channel") ?? "");
     setHomeUrl(channelObj.domain);
   }, []);
 
@@ -86,7 +86,12 @@ export default function Home(Props: any) {
                           <div className="flex">
                             <OverlayTrigger
                               placement="top"
-                              overlay={<Tooltip>{homeUrl}{item.url}</Tooltip>}
+                              overlay={
+                                <Tooltip>
+                                  {homeUrl}
+                                  {item.url}
+                                </Tooltip>
+                              }
                             >
                               <div className="truncate max-w-[300px]">
                                 {item.url}
@@ -100,11 +105,13 @@ export default function Home(Props: any) {
                           </div>
                         </td>
                         <td>
-                          <button 
-                            type="button" 
+                          <button
+                            type="button"
                             className="btn btn-default"
                             onClick={() => {
-                              router.push(`/seo-audit/${item.id || item.item_id}`);
+                              router.push(
+                                `/seo-audit/${item.id || item.item_id}`,
+                              );
                               Props.onHide();
                             }}
                           >

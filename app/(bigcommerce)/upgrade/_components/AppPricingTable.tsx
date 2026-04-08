@@ -87,8 +87,8 @@ export default function AppPricingTable(props: {
     props.cancelPaidPlan()
     setModalOpen(false)
   }
-
-  const handleChoosePro = () => {
+const =
+ handleChoosePro = () => {
     props.setShowInnerPage(true)
     props.setPlanName('pro')
     props.setPaypalPlanId(process.env.NEXT_PUBLIC_PLANID1 ?? '')

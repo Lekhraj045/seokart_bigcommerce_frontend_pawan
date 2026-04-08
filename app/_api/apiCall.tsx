@@ -1,23 +1,23 @@
 export async function Api(url: string, body: any = {}) {
   try {
     const channelId =
-      (localStorage.getItem("channel") &&
-        JSON.parse(localStorage.getItem("channel") ?? "").channel_id) ||
+      (localStorage?.getItem("channel") &&
+        JSON.parse(localStorage?.getItem("channel") ?? "").channel_id) ||
       1;
 
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/${url}`, {
       headers: {
         "Content-Type": "application/json",
-        "api-token": localStorage.getItem("api-token") ?? "",
+        "api-token": localStorage?.getItem("api-token") ?? "",
         "app-key": `${process.env.NEXT_PUBLIC_API_KEY}`,
         "app-riyaz": "riyazfrontend",
       },
       method: "POST",
       body: JSON.stringify({
         ...body,
-        shop: localStorage.getItem("shop"),
+        shop: localStorage?.getItem("shop"),
         channel_id: channelId,
-        store_id: localStorage.getItem("user_id"),
+        store_id: localStorage?.getItem("user_id"),
       }),
     });
 
@@ -38,29 +38,28 @@ export async function Api(url: string, body: any = {}) {
 
 export const copilotApi = async (uri: string, option: any, method = "POST") => {
   const channelId =
-    (localStorage.getItem("channel") &&
-      JSON.parse(localStorage.getItem("channel") ?? "").channel_id) ||
+    (localStorage?.getItem("channel") &&
+      JSON.parse(localStorage?.getItem("channel") ?? "").channel_id) ||
     1;
-  console.log("copilotApi result first", uri);
 
   const response = await fetch(
-    `https://revamp.seokart.com/seokart-bigcommerce-app/api/${uri}`,
+    `https://shopify.favseo.com/seokart_bigcommerce/api/seocopilot/${uri}`,
     {
       method: method,
       headers: {
         "Content-Type": "application/json",
-        "api-token": localStorage.getItem("api-token") ?? "",
+        "api-token": localStorage?.getItem("api-token") ?? "",
         "app-key": `${process.env.NEXT_PUBLIC_API_KEY}`,
       },
       body: JSON.stringify({
         ...option,
-        shop: localStorage.getItem("shop"),
+        shop: localStorage?.getItem("shop"),
         channel_id: channelId,
-        store_id: localStorage.getItem("user_id"),
+        store_id: localStorage?.getItem("user_id"),
       }),
     },
   );
-  console.log("copilotApi response", response);
+  // console.log("copilotApi response", response);
   const result = await response.json();
 
   return result;
@@ -74,7 +73,7 @@ export async function InstallApi(url: any, body: any) {
     method: "POST",
     body: JSON.stringify(body),
   });
-  console.log("InstallApi response", response);
+  // console.log("InstallApi response", response);
   const result = await response.json();
   return result;
 }

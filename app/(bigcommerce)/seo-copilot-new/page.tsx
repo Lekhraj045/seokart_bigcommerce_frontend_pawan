@@ -40,7 +40,9 @@ export default function Home() {
   const [rightSideLoading, setRightSideLoading] = useState(1);
   const childRef = useRef<any>();
   const [itemType, setItemType] = useState("all");
-  const [sort, setSort] = useState(localStorage?.getItem("sort") || "atoz");
+  const [sort, setSort] = useState<string>(
+    localStorage?.getItem("sort") || "atoz",
+  );
   const [emptyType, setEmptyType] = useState(
     localStorage?.getItem("emptyType") ?? "all",
   );
@@ -148,12 +150,13 @@ export default function Home() {
 
   const getSetGptSettings = async () => {
     const settings = await copilotApi("getGptSettings", {});
+    
     setCheckedItems({
-      targetKeyword: settings.data.target_keyword ? true : false,
-      titleTag: settings.data.title_tag ? true : false,
-      metaDescription: settings.data.meta_description ? true : false,
-      description: settings.data.description ? true : false,
-      image: settings.data.image ? true : false,
+      targetKeyword: settings?.data?.target_keyword ? true : false,
+      titleTag: settings?.data?.title_tag ? true : false,
+      metaDescription: settings?.data?.meta_description ? true : false,
+      description: settings?.data?.description ? true : false,
+      image: settings?.data?.image ? true : false,
     });
   };
 
@@ -236,7 +239,6 @@ export default function Home() {
     }
     // getSelectedAiLang();
     getSetGptSettings();
-    getCredits();
   }, []);
 
   const prevFilterRef = useRef({ searchKeyword, sort, itemType });
@@ -252,8 +254,6 @@ export default function Home() {
       prev.sort === sort &&
       prev.itemType === itemType;
     prevFilterRef.current = { searchKeyword, sort, itemType };
-
-    console.log("sorting like ", sort);
 
     const delay = isSearchOnlyChange ? 500 : 0;
     const timer = setTimeout(() => {
@@ -310,12 +310,6 @@ export default function Home() {
     { label: "Indonesian", value: "indonesian" },
   ];
 
-  const getCredits = () => {
-    copilotApi("getCreditStatus", {}).then(({ data }) => {
-      setCredits({ limit: data.credits_limit, used: data.credits_used });
-    });
-  };
-
   useEffect(() => {
     setCurrentPageHidden(String(currentPage));
   }, [currentPage]);
@@ -333,9 +327,9 @@ export default function Home() {
           </div>
 
           <div className="content-frameHead-right">
-            <div className="badge badge-success">
+            {/* <div className="badge badge-success">
               Quota Used: {credits.used} /{credits.limit}
-            </div>
+            </div> */}
             <Select
               value={languageList.find((item) => item.value == gptLanguage)}
               onChange={handleOnChangeLanguage}
@@ -827,7 +821,6 @@ export default function Home() {
             <div className="flex-1" key={rightKey}>
               {activeItemId && (
                 <CopilotRight
-                  getCredits={getCredits}
                   gptLanguage={gptLanguage}
                   setGptLanguage={setGptLanguage}
                   mainItemId={activeItemId}

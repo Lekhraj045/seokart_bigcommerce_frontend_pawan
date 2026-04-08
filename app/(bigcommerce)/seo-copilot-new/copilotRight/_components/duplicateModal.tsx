@@ -2,6 +2,7 @@ import { Api } from "@/app/_api/apiCall";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Modal, Spinner } from "react-bootstrap";
+import { toast } from "react-toastify";
 
 export default function Home(Props: any) {
   const params = useParams();
@@ -27,8 +28,13 @@ export default function Home(Props: any) {
   };
 
   useEffect(() => {
-    const channelObj = JSON.parse(localStorage?.getItem("channel") ?? "");
-    setHomeUrl(channelObj.domain);
+    try {
+      const channelObj = JSON?.parse(localStorage?.getItem("channel") ?? "");
+      setHomeUrl(channelObj?.domain);
+    } catch (error) {
+      setHomeUrl("");
+      toast.error("Please select a channel");
+    }
   }, []);
 
   return (
@@ -57,13 +63,13 @@ export default function Home(Props: any) {
                   </tr>
                 </thead>
                 <tbody>
-                  {duplicateList.map((item: any, key: any) => (
+                  {duplicateList?.length > 0 && duplicateList?.map((item: any, key: any) => (
                     <tr key={key}>
                       <td>
                         {homeUrl}
-                        {item.url}
+                        {item?.url}
                       </td>
-                      <td>{item.item_name}</td>
+                      <td>{item?.item_name}</td>
                       <td>
                         <button type="button" className="icon-btn">
                           <img src="images/add-icon.svg" alt="" />

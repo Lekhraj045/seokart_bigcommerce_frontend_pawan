@@ -43,7 +43,7 @@ export default function Home({
     Api("bulkOptimizer/getLivePreviewData", { type: selectedItem }).then(
       (data) => {
         setPreviewData(data.data);
-      }
+      },
     );
   };
 
@@ -80,7 +80,7 @@ export default function Home({
 
   const updateCruiseStatus = () => {
     if (cruiseControl == false) {
-      const isPaid = localStorage.getItem("manage_service") ?? 0;
+      const isPaid = localStorage?.getItem("manage_service") ?? 0;
       if (isPaid == 0) {
         toast.error("Please Upgrade Your Account.");
         return false;
@@ -120,8 +120,8 @@ export default function Home({
       currentTab == "titleTag"
         ? "title"
         : currentTab == "metaDescription"
-        ? "description"
-        : "alttag";
+          ? "description"
+          : "alttag";
     let extraData;
     if (updateType == "update_range") {
       extraData = [String(range.start), String(range.end)];
@@ -156,70 +156,70 @@ export default function Home({
     if (bulkHomeData.loading == false) {
       if (currentTab == "titleTag" && selectedItem == "product") {
         setTemplate(
-          bulkHomeData.data.template.prd_title?.replaceAll("^ ", " ") ?? ""
+          bulkHomeData.data.template.prd_title?.replaceAll("^ ", " ") ?? "",
         );
         setCruiseControl(
           bulkHomeData.data.template.product_cruise.title == "true"
             ? true
-            : false
+            : false,
         );
       }
 
       if (currentTab == "metaDescription" && selectedItem == "product") {
         setTemplate(
-          bulkHomeData.data.template.prd_desc?.replaceAll("^ ", " ") ?? ""
+          bulkHomeData.data.template.prd_desc?.replaceAll("^ ", " ") ?? "",
         );
         setCruiseControl(
           bulkHomeData.data.template.product_cruise.desc == "true"
             ? true
-            : false
+            : false,
         );
       }
 
       if (currentTab == "altText" && selectedItem == "product") {
         setTemplate(
-          bulkHomeData.data.template.prd_alt_tag?.replaceAll("^ ", " ") ?? ""
+          bulkHomeData.data.template.prd_alt_tag?.replaceAll("^ ", " ") ?? "",
         );
       }
 
       if (currentTab == "titleTag" && selectedItem == "category") {
         setTemplate(
-          bulkHomeData.data.template.cat_title?.replaceAll("^ ", " ") ?? ""
+          bulkHomeData.data.template.cat_title?.replaceAll("^ ", " ") ?? "",
         );
         setCruiseControl(
           bulkHomeData.data.template.category_cruise.title == "true"
             ? true
-            : false
+            : false,
         );
       }
 
       if (currentTab == "metaDescription" && selectedItem == "category") {
         setTemplate(
-          bulkHomeData.data.template.cat_desc?.replaceAll("^ ", " ") ?? ""
+          bulkHomeData.data.template.cat_desc?.replaceAll("^ ", " ") ?? "",
         );
         setCruiseControl(
           bulkHomeData.data.template.category_cruise.desc == "true"
             ? true
-            : false
+            : false,
         );
       }
 
       if (currentTab == "titleTag" && selectedItem == "brand") {
         setTemplate(
-          bulkHomeData.data.template.brand_title?.replaceAll("^ ", " ") ?? ""
+          bulkHomeData.data.template.brand_title?.replaceAll("^ ", " ") ?? "",
         );
       }
 
       if (currentTab == "metaDescription" && selectedItem == "brand") {
         setTemplate(
-          bulkHomeData.data.template.brand_desc?.replaceAll("^ ", " ") ?? ""
+          bulkHomeData.data.template.brand_desc?.replaceAll("^ ", " ") ?? "",
         );
       }
     }
   }, [bulkHomeData, currentTab, selectedItem]);
 
   useEffect(() => {
-    const channelObj = JSON.parse(localStorage.getItem("channel") ?? "");
+    const channelObj = JSON.parse(localStorage?.getItem("channel") ?? "");
     setHomeUrl(channelObj.domain);
   }, []);
 
@@ -330,7 +330,7 @@ export default function Home({
                         onClick={() =>
                           setTemplate(
                             (prev: any) =>
-                              `${prev} ${bulkHomeData.data.currency_code}`
+                              `${prev} ${bulkHomeData.data.currency_code}`,
                           )
                         }
                       >
@@ -462,7 +462,8 @@ export default function Home({
                     className="btn btn-default"
                     onClick={() =>
                       setTemplate(
-                        (prev: any) => `${prev} ${bulkHomeData.data.store_name}`
+                        (prev: any) =>
+                          `${prev} ${bulkHomeData.data.store_name}`,
                       )
                     }
                   >
@@ -490,20 +491,20 @@ export default function Home({
                   selectedItem == "product"
                     ? "products"
                     : selectedItem == "category"
-                    ? "categories"
-                    : "brands"
+                      ? "categories"
+                      : "brands"
                 } Here is a sample ${
                   selectedItem == "product"
                     ? "product"
                     : selectedItem == "category"
-                    ? "category"
-                    : "brand"
+                      ? "category"
+                      : "brand"
                 }'s ${
                   currentTab == "titleTag"
                     ? "Title Tag"
                     : currentTab == "metaDescription"
-                    ? "Meta Description"
-                    : "Alt Text"
+                      ? "Meta Description"
+                      : "Alt Text"
                 }.`}
               </p>
             </div>
@@ -516,8 +517,8 @@ export default function Home({
                       {selectedItem == "product"
                         ? `Product`
                         : selectedItem == "category"
-                        ? "Category"
-                        : "Brand"}{" "}
+                          ? "Category"
+                          : "Brand"}{" "}
                       URL:
                     </span>
                     <a
@@ -555,8 +556,8 @@ export default function Home({
                       {currentTab == "titleTag"
                         ? "Title Tag"
                         : currentTab == "metaDescription"
-                        ? "Meta Description"
-                        : "Alt Text"}
+                          ? "Meta Description"
+                          : "Alt Text"}
                       :
                     </p>
 
@@ -566,16 +567,16 @@ export default function Home({
                           {currentTab == "titleTag"
                             ? previewData.title_tag
                             : currentTab == "metaDescription"
-                            ? previewData.meta_desc
-                            : previewData.product_img_alt}
+                              ? previewData.meta_desc
+                              : previewData.product_img_alt}
                         </p>
                       </div>
                       <p className="text-xs text-[#616161] font-normal absolute bottom-0 right-0 bg-white p-1.5">
                         {(currentTab == "titleTag"
                           ? previewData.title_tag
                           : currentTab == "metaDescription"
-                          ? previewData.meta_desc
-                          : previewData.product_img_alt
+                            ? previewData.meta_desc
+                            : previewData.product_img_alt
                         )?.length || 0}
                       </p>
                     </div>
@@ -587,8 +588,8 @@ export default function Home({
                       {currentTab == "titleTag"
                         ? "Title Tag"
                         : currentTab == "metaDescription"
-                        ? "Meta Description"
-                        : "Alt Text"}
+                          ? "Meta Description"
+                          : "Alt Text"}
                       :
                     </p>
 
@@ -598,14 +599,14 @@ export default function Home({
                           {template
                             ?.replaceAll(
                               "[[product name]]",
-                              previewData.product_name
+                              previewData.product_name,
                             )
                             .replaceAll("[[sku]]", previewData.sku)
                             .replaceAll("[[price]]", previewData.price)
                             .replaceAll("[[type]]", previewData.type)
                             .replaceAll(
                               "[[category name]]",
-                              previewData.category_name
+                              previewData.category_name,
                             )
                             .replaceAll("[[brand]]", previewData.brand_name)
                             .replaceAll("[[mpn]]", previewData.mpn)
@@ -619,14 +620,14 @@ export default function Home({
                         {template
                           ?.replaceAll(
                             "[[product name]]",
-                            previewData.product_name
+                            previewData.product_name,
                           )
                           .replaceAll("[[sku]]", previewData.sku)
                           .replaceAll("[[price]]", previewData.price)
                           .replaceAll("[[type]]", previewData.type)
                           .replaceAll(
                             "[[category name]]",
-                            previewData.category_name
+                            previewData.category_name,
                           )
                           .replaceAll("[[brand]]", previewData.brand_name)
                           .replaceAll("[[mpn]]", previewData.mpn)

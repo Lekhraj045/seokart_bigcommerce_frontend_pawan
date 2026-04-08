@@ -9,14 +9,14 @@ import _ from "lodash";
 
 export default function Home() {
   const [itemType, setItemType] = useState(
-    localStorage.getItem("itemType") ?? "product",
+    localStorage?.getItem("itemType") ?? "product",
   );
-  const [sort, setSort] = useState(localStorage.getItem("sort") ?? "atoz");
+  const [sort, setSort] = useState(localStorage?.getItem("sort") || "atoz");
   const [emptyType, setEmptyType] = useState(
-    localStorage.getItem("emptyType") ?? "all",
+    localStorage?.getItem("emptyType") ?? "all",
   );
   const [searchKeyword, setSearchKeyword] = useState(
-    localStorage.getItem("searchKeyword") ?? "",
+    localStorage?.getItem("searchKeyword") ?? "",
   );
   const [itemList, setItemList] = useState({
     data: [],
@@ -24,9 +24,9 @@ export default function Home() {
     total: 0,
   });
   const [currentPage, setCurrentPage] = useState<any>(
-    localStorage.getItem("currentPage") ?? 1,
+    localStorage?.getItem("currentPage") ?? 1,
   );
-  const [limit, setLimit] = useState<any>(localStorage.getItem("limit") ?? 10);
+  const [limit, setLimit] = useState<any>(localStorage?.getItem("limit") ?? 10);
   const retryRef = useRef(false);
   const retryTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 

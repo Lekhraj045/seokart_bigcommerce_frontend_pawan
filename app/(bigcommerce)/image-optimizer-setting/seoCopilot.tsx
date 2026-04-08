@@ -143,7 +143,8 @@ export default function Home() {
                             className="vc-switch-input"
                             onChange={() => {
                               if (
-                                localStorage.getItem("manage_service") == "1" ||
+                                localStorage?.getItem("manage_service") ==
+                                  "1" ||
                                 cruiseControl == true
                               ) {
                                 setCruiseControl(!cruiseControl);

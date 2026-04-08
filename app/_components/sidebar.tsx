@@ -100,6 +100,24 @@ export default function Sidebar({ handleOnChange }: { handleOnChange: any }) {
             <li>
               <Link
                 prefetch={false}
+                href="/seo-copilot-new"
+                className={segment == "seo-copilot-new" ? "active" : ""}
+              >
+                <div className="nav-icon">
+                  <Image
+                    src={`${basePath}/images/analytics-icon.svg`}
+                    alt=""
+                    width={20}
+                    height={20}
+                  />
+                </div>
+                <span className="nav-text">SEO copilot new</span>
+              </Link>
+            </li>
+
+            <li>
+              <Link
+                prefetch={false}
                 href="/rank-tracker"
                 className={segment == "rank-tracker" ? "active" : ""}
               >

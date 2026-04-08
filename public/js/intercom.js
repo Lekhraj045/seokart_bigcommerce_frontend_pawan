@@ -32,36 +32,33 @@
 //   }
 // })();
 
-
-
 //   window.Intercom("boot", {
 //     api_base: "https://api-iam.intercom.io",
 //     app_id: "zd1gh4in"
 //   });
 
 //   window.intercomSettings = {
-//     user_id: localStorage.getItem('user_id'),
+//     user_id: localStorage?.getItem('user_id'),
 //     app_id: "zd1gh4in"
 //   }
 
-
-!function (o) {
+!(function (o) {
   var w = window;
   w.SessionRewindConfig = o;
   var f = document.createElement("script");
-  f.async = 1, f.crossOrigin = "anonymous",
-    f.src = "https://rec.sessionrewind.com/srloader.js";
+  ((f.async = 1),
+    (f.crossOrigin = "anonymous"),
+    (f.src = "https://rec.sessionrewind.com/srloader.js"));
   var g = document.getElementsByTagName("head")[0];
   g.insertBefore(f, g.firstChild);
-}({
-  apiKey: 'hLGlm6z50H5MlhJCoufuW3LOgNhaKbrf9R7SI5Kb',
+})({
+  apiKey: "hLGlm6z50H5MlhJCoufuW3LOgNhaKbrf9R7SI5Kb",
   startRecording: true,
   userInfo: {
-    userId: localStorage.getItem('email'),
-    userName: localStorage.getItem('email'),
-    platform: 'bigcommerce',
-    payment_status: localStorage.getItem('manage_service') == 1 ? 'paid' : 'unpaid'
-  }
+    userId: localStorage?.getItem("email"),
+    userName: localStorage?.getItem("email"),
+    platform: "bigcommerce",
+    payment_status:
+      localStorage?.getItem("manage_service") == 1 ? "paid" : "unpaid",
+  },
 });
-
-
