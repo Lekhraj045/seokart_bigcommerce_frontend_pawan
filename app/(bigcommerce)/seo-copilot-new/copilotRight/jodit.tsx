@@ -33,7 +33,7 @@ const editor = function Home(Props: any) {
             "video",
             "table",
             "link",
-            "|", 
+            "|",
             "align",
             "undo",
             "redo",

@@ -22,6 +22,7 @@ import ContentIssue from "./_components/contentIssue";
 import Singleimagerow from "./_components/singleImageRow";
 import Modal from "react-bootstrap/Modal";
 import GptModalBox from "./_components/gptModal";
+import FAQs from "./_components/faq";
 import { differenceInDays } from "date-fns";
 import Select from "react-select";
 
@@ -73,7 +74,10 @@ const Home = (Props: any, ref: any) => {
     data: "",
   });
   const [description, setDescription] = useState({ loading: true, data: "" });
-
+  const [faqs, setFaqs] = useState({
+    loading: true,
+    data: [{ question: "", answer: "" }],
+  });
   const [keywordRankModal, setKeywordRankModal] = useState(false);
   const [titleLengthIssue, setTitleLengthIssue] = useState({
     loading: true,
@@ -143,6 +147,8 @@ const Home = (Props: any, ref: any) => {
   const descriptionLatestRef = useRef<string>("");
   // Latest alt text per image index (updated on every change) so Preview shows current alt without waiting for state
   const imageAltsLatestRef = useRef<Record<number, string>>({});
+  type FaqItem = { question: string; answer: string };
+  const faqsRef = useRef<FaqItem[]>([{ question: "", answer: "" }]);
   // Refs for unsaved-changes check (read in useImperativeHandle)
   const nameRef = useRef("");
   const targetKeywordRef = useRef("");
@@ -156,6 +162,7 @@ const Home = (Props: any, ref: any) => {
     metaDescription: string;
     description: string;
     imageAlts: Record<number, string>;
+    faqs: FaqItem[];
   }>({
     name: "",
     targetKeyword: "",
@@ -163,6 +170,7 @@ const Home = (Props: any, ref: any) => {
     metaDescription: "",
     description: "",
     imageAlts: {},
+    faqs: [{ question: "", answer: "" }],
   });
   const savedSeoScoreRef = useRef<number | undefined>(undefined);
   const lastReportedItemTypeRef = useRef<string>("");
@@ -171,6 +179,10 @@ const Home = (Props: any, ref: any) => {
   useEffect(() => {
     descriptionLatestRef.current = description.data ?? "";
   }, [description.data]);
+
+  useEffect(() => {
+    faqsRef.current = Array.isArray(faqs.data) ? faqs.data : [];
+  }, [faqs.data]);
 
   // Keep current-state refs in sync for unsaved-changes check (name is string state, others use .data)
   useEffect(() => {
@@ -233,11 +245,13 @@ const Home = (Props: any, ref: any) => {
     );
     setPreviewImage(updated);
   };
+
   const getSingleItemOptimize = () => {
     setTargetKeyword({ loading: true, data: "" });
     setTitleTag({ loading: true, data: "" });
     setMetaDescription({ loading: true, data: "" });
     setDescription({ loading: true, data: "" });
+    setFaqs({ loading: true, data: [{ question: "", answer: "" }] });
 
     setLoading(true);
     Api("getSingleItemOptimize", { id: id }).then((data) => {
@@ -251,7 +265,6 @@ const Home = (Props: any, ref: any) => {
       if (data?.gpt_popup_show == 0)
         setGptModal({ status: false, needToShow: true });
 
-      //setSeoScore(data.total_seo_score)
       const itemData = data?.data?.item_data;
       setName(itemData?.item_name);
       setTargetKeyword({ loading: false, data: itemData?.target_keyword });
@@ -265,8 +278,6 @@ const Home = (Props: any, ref: any) => {
         Props.onItemTypeChange?.(newType);
       }
       setItemId(itemData?.item_id);
-      // setImageData(itemData.image_data)
-      // setUpdateImageData(itemData.image_data)
       setOldData(data?.data?.old_data);
       savedSnapshotRef.current = {
         ...savedSnapshotRef.current,
@@ -292,6 +303,38 @@ const Home = (Props: any, ref: any) => {
       setUrl(itemData?.url);
       setSeoScore(data?.total_seo_score);
       savedSeoScoreRef.current = data?.total_seo_score;
+    });
+  };
+
+  const getFaqs = () => {
+    if (!id) {
+      console.log("runninggg,........");
+      setFaqs({ loading: false, data: [{ question: "", answer: "" }] });
+      savedSnapshotRef.current = {
+        ...savedSnapshotRef.current,
+        faqs: [{ question: "", answer: "" }],
+      };
+      return;
+    }
+    setFaqs({ loading: true, data: [{ question: "", answer: "" }] });
+    Api("faq/list", { id }).then((data) => {
+      const rawFaqs = data?.data;
+      let nextFaqs: Array<{ question: string; answer: string }> = [];
+      if (Array.isArray(rawFaqs)) {
+        nextFaqs = rawFaqs
+          .map((item: any) => ({
+            question: item?.question ?? "",
+            answer: item?.answer ?? "",
+          }))
+          .filter((x) => x.question || x.answer);
+      }
+      if (!nextFaqs.length) nextFaqs = [{ question: "", answer: "" }];
+      setFaqs({ loading: false, data: nextFaqs });
+
+      savedSnapshotRef.current = {
+        ...savedSnapshotRef.current,
+        faqs: nextFaqs,
+      };
     });
   };
 
@@ -542,6 +585,7 @@ const Home = (Props: any, ref: any) => {
       title_tag: titleTag.data,
       meta_description: metaDescription.data,
       description: description.data,
+      faqs: JSON.stringify(faqsRef.current ?? []),
       alt_data: JSON.stringify(updateImageData),
       old_url: url,
       new_url: newUrl,
@@ -562,6 +606,7 @@ const Home = (Props: any, ref: any) => {
         imageAlts: Object.keys(alts).length
           ? alts
           : savedSnapshotRef.current.imageAlts,
+        faqs: faqsRef.current ?? [],
       };
       savedSeoScoreRef.current =
         typeof seoScore === "number" ? seoScore : undefined;
@@ -606,10 +651,6 @@ const Home = (Props: any, ref: any) => {
     });
   };
 
-  // useEffect(() => {
-  //   getGoogleSuggestedKeyword();
-  // }, [targetKeyword]);
-
   useEffect(() => {
     const keyword = targetKeyword.data;
     if (keyword && keyword !== prevKeyword.current) {
@@ -621,6 +662,7 @@ const Home = (Props: any, ref: any) => {
     lastReportedItemTypeRef.current = "";
     getSingleItemOptimize();
     getProductImages();
+    getFaqs();
   }, [id]);
 
   useEffect(() => {
@@ -656,54 +698,115 @@ const Home = (Props: any, ref: any) => {
   ];
 
   const handleRunSeoCopilot = async (checkedItems: any) => {
-    if (checkedItems.targetKeyword)
-      setTargetKeyword((prev: any) => ({ ...prev, loading: true }));
-    if (checkedItems.titleTag && itemType !== "blog" && itemType !== "home")
-      setTitleTag((prev: any) => ({ ...prev, loading: true }));
-    if (checkedItems.metaDescription && itemType !== "home")
-      setMetaDescription((prev: any) => ({ ...prev, loading: true }));
-    if (checkedItems.description && itemType !== "brand" && itemType !== "home")
-      setDescription((prev: any) => ({ ...prev, loading: true }));
+    // Keep "next" locals so audit doesn't read stale refs (refs sync after render).
+    let keyword = targetKeyword.data ?? "";
+    let nextTitle = titleTagRef.current ?? "";
+    let nextMetaDescription = metaDescriptionRef.current ?? "";
+    let nextDescription = descriptionRef.current ?? "";
 
-    let keyword = targetKeyword.data;
-
-    const apiCalls: Promise<any>[] = [];
+    const selectedCount = [
+      checkedItems.targetKeyword,
+      checkedItems.titleTag,
+      checkedItems.metaDescription,
+      checkedItems.description,
+    ].filter(Boolean).length;
 
     try {
+      // ✅ STEP 0: Start ALL loaders together
       if (checkedItems.targetKeyword) {
-        apiCalls.push(
-          copilotApi("generateTargetKeyword", {
-            item_name: name,
-            item_id: itemId,
-            item_db_id: id,
-            type: itemType,
-            target_keyword: targetKeyword.data,
-            lang: Props.gptLanguage,
-          })
-            .then((res) => {
-              if (res.success || res.status_code == 200) {
-                setTargetKeyword({
-                  loading: false,
-                  data: res?.data?.keyword,
-                });
-                setIsSeoUpdated(true);
-                getAuditScoreOnChange(
-                  nameRef.current,
-                  res?.data?.keyword,
-                  titleTagRef.current,
-                  metaDescriptionRef.current,
-                  descriptionRef.current,
-                  primaryImageAltText,
-                  url,
-                );
-                keyword = res?.data?.keyword;
-              }
-            })
-            .finally(() => {
-              setTargetKeyword((prev) => ({ ...prev, loading: false }));
-            }),
-        );
+        setTargetKeyword((prev: any) => ({ ...prev, loading: true }));
       }
+
+      if (checkedItems.titleTag && itemType !== "blog" && itemType !== "home") {
+        setTitleTag((prev: any) => ({ ...prev, loading: true }));
+      }
+
+      if (checkedItems.metaDescription && itemType !== "home") {
+        setMetaDescription((prev: any) => ({ ...prev, loading: true }));
+      }
+
+      if (
+        checkedItems.description &&
+        itemType !== "brand" &&
+        itemType !== "home"
+      ) {
+        setDescription((prev: any) => ({ ...prev, loading: true }));
+      }
+
+      /**
+       * Requirement:
+       * - If 2+ checkboxes are selected AND target keyword is included:
+       *   call target keyword API first and pass its response keyword to other APIs.
+       * - Otherwise run the selected API(s) normally.
+       */
+      const shouldGenerateKeywordFirst =
+        Boolean(checkedItems.targetKeyword) && selectedCount >= 2;
+
+      // If ONLY target keyword is selected, just run that API and finish.
+      if (checkedItems.targetKeyword && selectedCount === 1) {
+        const res = await copilotApi("generateTargetKeyword", {
+          item_name: name,
+          item_id: itemId,
+          item_db_id: id,
+          type: itemType,
+          target_keyword: targetKeyword.data,
+          lang: Props.gptLanguage,
+        });
+
+        // Some endpoints return success at `res.success`, others at `res.data.success`
+        if (res?.data?.success || res?.success || res.status_code == 200) {
+          keyword = res?.data?.keyword ?? "";
+          targetKeywordRef.current = keyword;
+          setTargetKeyword({ loading: false, data: keyword });
+          setIsSeoUpdated(true);
+        } else {
+          keyword = "";
+          targetKeywordRef.current = "";
+          setTargetKeyword({ loading: false, data: "" });
+          toast.error("Failed to generate target keyword");
+        }
+
+        // Ensure this run's audit uses the latest keyword (cancel any pending stale debounced call)
+        (debouncedAuditScore as any)?.cancel?.();
+        debouncedAuditScore({
+          name: nameRef.current,
+          targetKeyword: keyword,
+          titleTag: nextTitle,
+          metaDescription: nextMetaDescription,
+          description: nextDescription,
+          imageAlt: primaryImageAltText,
+          url,
+        });
+        return;
+      }
+
+      // If keyword is selected along with others, generate it first.
+      if (shouldGenerateKeywordFirst) {
+        const res = await copilotApi("generateTargetKeyword", {
+          item_name: name,
+          item_id: itemId,
+          item_db_id: id,
+          type: itemType,
+          target_keyword: targetKeyword.data,
+          lang: Props.gptLanguage,
+        });
+
+        // Some endpoints return success at `res.success`, others at `res.data.success`
+        if (res?.data?.success || res?.success || res.status_code == 200) {
+          keyword = res?.data?.keyword ?? "";
+          targetKeywordRef.current = keyword;
+          setTargetKeyword({ loading: false, data: keyword });
+          setIsSeoUpdated(true);
+        } else {
+          keyword = "";
+          targetKeywordRef.current = "";
+          setTargetKeyword({ loading: false, data: "" });
+          toast.error("Failed to generate target keyword");
+        }
+      }
+
+      // ✅ STEP 2: Parallel APIs
+      const apiCalls: Promise<any>[] = [];
 
       if (checkedItems.titleTag && itemType !== "blog" && itemType !== "home") {
         apiCalls.push(
@@ -714,29 +817,16 @@ const Home = (Props: any, ref: any) => {
             type: itemType,
             target_keyword: keyword,
             lang: Props.gptLanguage,
-          })
-            .then((res) => {
-              if (res.success || res.status_code == 200) {
-                const nextTitle = res?.data?.meta_title ?? "";
-                setTitleTag({
-                  loading: false,
-                  data: nextTitle,
-                });
-                setIsSeoUpdated(true);
-                getAuditScoreOnChange(
-                  nameRef.current,
-                  targetKeywordRef.current,
-                  nextTitle,
-                  metaDescriptionRef.current,
-                  descriptionRef.current,
-                  primaryImageAltText,
-                  url,
-                );
-              }
-            })
-            .finally(() => {
-              setTitleTag((prev) => ({ ...prev, loading: false }));
-            }),
+          }).then((res) => {
+            if (res.success || res.status_code == 200) {
+              nextTitle = res?.data?.meta_title ?? "";
+              setTitleTag({
+                loading: false,
+                data: nextTitle,
+              });
+              setIsSeoUpdated(true);
+            }
+          }),
         );
       }
 
@@ -749,29 +839,16 @@ const Home = (Props: any, ref: any) => {
             type: itemType,
             target_keyword: keyword,
             lang: Props.gptLanguage,
-          })
-            .then((res) => {
-              if (res.success || res.status_code == 200) {
-                const nextMetaDescription = res?.data?.meta_description ?? "";
-                setMetaDescription({
-                  loading: false,
-                  data: nextMetaDescription ?? "",
-                });
-                setIsSeoUpdated(true);
-                getAuditScoreOnChange(
-                  nameRef.current,
-                  targetKeywordRef.current,
-                  titleTagRef.current,
-                  nextMetaDescription,
-                  descriptionRef.current,
-                  primaryImageAltText,
-                  url,
-                );
-              }
-            })
-            .finally(() => {
-              setMetaDescription((prev) => ({ ...prev, loading: false }));
-            }),
+          }).then((res) => {
+            if (res.success || res.status_code == 200) {
+              nextMetaDescription = res?.data?.meta_description ?? "";
+              setMetaDescription({
+                loading: false,
+                data: nextMetaDescription,
+              });
+              setIsSeoUpdated(true);
+            }
+          }),
         );
       }
 
@@ -791,42 +868,90 @@ const Home = (Props: any, ref: any) => {
               target_keyword: keyword,
               lang: Props.gptLanguage,
             },
-          )
-            .then((res) => {
-              if (res.data?.success || res.status_code == 200) {
-                const nextDescription = res?.data?.description ?? "";
-                setDescription({
-                  loading: false,
-                  data: nextDescription,
-                });
-                console.log("nextDescription", nextDescription);
-                getAuditScoreOnChange(
-                  nameRef.current,
-                  targetKeywordRef.current,
-                  titleTagRef.current,
-                  metaDescriptionRef.current,
-                  nextDescription,
-                  primaryImageAltText,
-                  url,
-                );
-                setIsSeoUpdated(true);
-              }
-            })
-            .finally(() => {
-              setDescription((prev) => ({ ...prev, loading: false }));
-            }),
+          ).then((res) => {
+            if (res.data?.success || res.status_code == 200) {
+              nextDescription = res?.data?.description ?? "";
+              setDescription({
+                loading: false,
+                data: nextDescription,
+              });
+              setIsSeoUpdated(true);
+            }
+          }),
         );
       }
 
-      // ✅ fire only required APIs
-      await Promise.all(apiCalls);
-    } finally {
-      if (checkedItems.titleTag && itemType !== "blog")
-        setTitleTag((prev) => ({ ...prev, loading: false }));
-      if (checkedItems.metaDescription)
-        setMetaDescription((prev) => ({ ...prev, loading: false }));
-      if (checkedItems.description && itemType !== "brand")
-        setDescription((prev) => ({ ...prev, loading: false }));
+      if (checkedItems.faqs && itemType !== "brand" && itemType !== "home") {
+        apiCalls.push(
+          copilotApi("generateFaqs", {
+            item_name: name,
+            item_id: itemId,
+            item_db_id: id,
+            type: itemType,
+            target_keyword: keyword,
+            lang: Props.gptLanguage,
+          }).then((res) => {
+            if (res.data?.success || res.status_code == 200) {
+              const raw =
+                res?.data?.faqs ??
+                res?.data?.faq ??
+                res?.faqs ??
+                res?.data?.data ??
+                res?.data ??
+                [];
+
+              let nextFaqs: Array<{ question: string; answer: string }> = [];
+              if (Array.isArray(raw)) {
+                nextFaqs = raw
+                  .map((item: any) => ({
+                    question: item?.question ?? "",
+                    answer: item?.answer ?? "",
+                  }))
+                  .filter((x) => x.question || x.answer);
+              } else if (typeof raw === "string") {
+                try {
+                  const parsed = JSON.parse(raw);
+                  if (Array.isArray(parsed)) {
+                    nextFaqs = parsed
+                      .map((item: any) => ({
+                        question: item?.question ?? "",
+                        answer: item?.answer ?? "",
+                      }))
+                      .filter((x) => x.question || x.answer);
+                  }
+                } catch {
+                  // ignore parse errors; keep empty
+                }
+              }
+
+              if (!nextFaqs.length) nextFaqs = [{ question: "", answer: "" }];
+
+              setFaqs({
+                loading: false,
+                data: nextFaqs,
+              });
+              setIsSeoUpdated(true);
+            }
+          }),
+        );
+      }
+
+      // ✅ STEP 3: Wait all + final cleanup
+      await Promise.all(apiCalls).finally(() => {
+        // Ensure this run's audit uses the latest keyword (cancel any pending stale debounced call)
+        (debouncedAuditScore as any)?.cancel?.();
+        debouncedAuditScore({
+          name: nameRef.current,
+          targetKeyword: keyword, // latest keyword (generated first when required)
+          titleTag: nextTitle,
+          metaDescription: nextMetaDescription,
+          description: nextDescription,
+          imageAlt: primaryImageAltText,
+          url,
+        });
+      });
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -838,6 +963,7 @@ const Home = (Props: any, ref: any) => {
       metaDescription: metaDescriptionRef.current,
       description: descriptionLatestRef.current ?? descriptionRef.current,
       imageAlts: imageAltsLatestRef.current,
+      faqs: faqsRef.current,
     };
     const saved = savedSnapshotRef.current;
     if (
@@ -848,6 +974,7 @@ const Home = (Props: any, ref: any) => {
       cur.description !== saved.description
     )
       return true;
+    if (!_.isEqual(cur.faqs ?? [], saved.faqs ?? [])) return true;
     const altKeys = new Set([
       ...Object.keys(cur.imageAlts),
       ...Object.keys(saved.imageAlts),
@@ -1168,6 +1295,22 @@ const Home = (Props: any, ref: any) => {
               </div>
             </div>
           </div>
+
+          {itemType === "product" && (
+            <FAQs
+              faqs={faqs.data}
+              setFaqs={(updater) => {
+                setFaqs((prev) => {
+                  const prevData = Array.isArray(prev.data) ? prev.data : [];
+                  const nextData =
+                    typeof updater === "function"
+                      ? (updater as any)(prevData)
+                      : updater;
+                  return { ...prev, loading: false, data: nextData };
+                });
+              }}
+            />
+          )}
 
           {itemType == "product" && (
             <div className="seo-optimizer--innerArea seo-optimizerInner-mainBox">

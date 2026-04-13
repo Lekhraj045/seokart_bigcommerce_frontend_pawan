@@ -312,7 +312,7 @@ export default function Home() {
 
   const getCredits = () => {
     copilotApi("getCreditStatus", {}).then(({ data }) => {
-      setCredits({ limit: data.credits_limit, used: data.credits_used });
+      setCredits({ limit: data?.credits_limit, used: data?.credits_used });
     });
   };
 

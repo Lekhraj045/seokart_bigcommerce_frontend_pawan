@@ -68,6 +68,7 @@ export default function Home() {
   const [currentPageHidden, setCurrentPageHidden] = useState("");
   const [aiButtonLoading, setAiButtonLoading] = useState(false);
   const [checkedItems, setCheckedItems] = useState({
+    faqs: false,
     targetKeyword: false,
     titleTag: false,
     metaDescription: false,
@@ -156,6 +157,7 @@ export default function Home() {
       titleTag: settings?.data?.title_tag ? true : false,
       metaDescription: settings?.data?.meta_description ? true : false,
       description: settings?.data?.description ? true : false,
+      faq: settings?.data?.faq ? true : false,
       image: settings?.data?.image ? true : false,
     });
   };
@@ -166,6 +168,7 @@ export default function Home() {
     metaDescription: boolean;
     description: boolean;
     image: boolean;
+    faqs: boolean;
   }
   const listRef = useRef<HTMLDivElement>(null);
 
@@ -178,6 +181,7 @@ export default function Home() {
           meta_description: settings.metaDescription,
           description: settings.description,
           image: settings.image,
+          faqs: settings.faqs,
         });
       }, 500),
     [],
@@ -208,7 +212,6 @@ export default function Home() {
       limit: limit,
     }).then((data: any) => {
       setTotalPage(Math.ceil(data?.total_page_count / limit));
-
       setItemList((prev: any) => ({
         data: data.data,
         loading: false,
@@ -222,13 +225,7 @@ export default function Home() {
     });
   };
 
-  // const getSelectedAiLang = () => {
-  //   // Api("get-selected-ai-lang").then((data: any) => {
-  //   //   console.log("getting this data", data);
-  //   //   setGptLanguage(data?.gpt_language);
-  //   // });
-  //   // return "english";
-  // };
+
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -460,6 +457,30 @@ export default function Home() {
                           </div>
                         </li>
                       )}
+
+                      {/* FAQs */}
+                    {currentItemType  === "product" && (
+                        <li>
+                          <div className="flex items-center">
+                            <input
+                              id="faqs"
+                              type="checkbox"
+                              checked={checkedItems.faqs}
+                              onChange={() =>
+                                handleCheckboxChange("faqs")
+                              }
+                              className="form-check-input cursor-pointer mt-0"
+                            />
+                            <label
+                              htmlFor="faqs"
+                              className="ms-2 text-sm font-medium text-gray-900"
+                            >
+                              FAQs
+                            </label>
+                          </div>
+                        </li>
+                      )}
+
 
                     {/* ✅ Image Section */}
                     <li>
@@ -920,5 +941,5 @@ export default function Home() {
         </Modal.Body>
       </Modal>
     </>
-  );
+  );  
 }
